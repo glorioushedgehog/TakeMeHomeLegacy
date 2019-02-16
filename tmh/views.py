@@ -31,3 +31,7 @@ def upload_image(request):
     else:
         form = UploadImageForm()
     return render(request, 'tmh/facial_recognition.html', {'form': form})
+
+def search_by_demographics(request):
+    if request.method == 'POST':
+        
