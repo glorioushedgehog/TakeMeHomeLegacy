@@ -69,7 +69,7 @@
     </ul>
 
     <div class="container">
-        <div class="row">
+        <div class="row" id="search_form">
             <div class="col s12 m5">
 
                 <div class="card-panel">
@@ -163,6 +163,10 @@
                 </div>
             </div>
         </div>
+
+        <table id="search_results">
+
+        </table>
 
     </div>
 
@@ -265,6 +269,8 @@
             }
 
             console.log(query)
+
+            document.getElementById("search_form").hidden = true
             return query
 
 
