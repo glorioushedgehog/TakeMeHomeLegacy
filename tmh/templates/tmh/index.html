@@ -57,6 +57,7 @@
     </ul>
 
     <div class="container">
+        <h4 id="search_title">  <strong> Search </strong> </h4>
         <div class="row" id="search_form">
             <div class="col s12 m5">
 
@@ -259,6 +260,7 @@
             console.log(query)
 
             document.getElementById("search_form").hidden = true
+            document.getElementById("search_title").innerHTML = "Search Results"
             return query
 
 
