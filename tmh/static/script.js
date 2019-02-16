@@ -77,6 +77,7 @@ function getSearchQuery() {
     console.log(query);
 
     document.getElementById("search_form").hidden = true;
+    document.getElementById("search_results").hidden = false;
     document.getElementById("search_title").innerHTML = "Search Results";
     return query
 }
@@ -92,4 +93,9 @@ function kgsToLbs(kgs) {
 
 function inchesToCms(inches) {
     return inches * 2.54
+}
+
+function resetViews() {
+    document.getElementById("search_form").hidden = false;
+    document.getElementById("search_results").hidden = true;
 }

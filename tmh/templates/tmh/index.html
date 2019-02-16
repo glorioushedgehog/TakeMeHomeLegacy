@@ -20,9 +20,7 @@
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper green darken-1">
-                <a href="#!" class="brand-logo"><strong>Take Me Home</strong></a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
-                        class="material-icons">arrow_drop_down</i></a>
+                <a href="#!" class="brand-logo" onclick="resetViews()"><strong>Take Me Home</strong></a>
                 <ul class="right hide-on-med-and-down">
                    
                 </ul>
@@ -30,10 +28,6 @@
         </nav>
 
     </div>
-
-    <ul class="sidenav" id="mobile-demo">
-        <h4 style="color: rgb(27, 157, 209); font-weight: bold;">Take Me Home</h4>
-    </ul>
 
     <div class="container">
         <h4 id="search_title">  <strong> Search </strong> </h4>
@@ -49,7 +43,6 @@
                             <td>
                                 <input type="text" id="age">
                             </td>
-
                         </tr>
                         <tr>
                             <td>
@@ -132,7 +125,7 @@
             </div>
         </div>
 
-        <table id="search_results">
+        <table id="search_results" hidden="true">
             <tr>
                 <td>
                     <div class="col s12 m7">
