@@ -2,8 +2,12 @@ from django.shortcuts import render
 
 # Create your views here.
 
-from django.http import HttpResponse
+from .models import Person
+from .models import ImageData
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    persons = Person.objects.all()
+    images = ImageData.objects.all()
+    context = {'persons': persons, 'images': images}
+    return render(request, 'tmh/index.html', context)
