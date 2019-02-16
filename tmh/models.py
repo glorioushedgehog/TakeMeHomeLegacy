@@ -116,6 +116,180 @@ class Person(models.Model):
                                                   null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     primarykey = models.CharField(db_column='PrimaryKey', primary_key=True, max_length=22)  # Field name made lowercase.
 
+    def search(self, first_name="", last_name="", middle_name="", name_to_call_me ="", home_city="", home_state="",
+               home_zip="", dob="", dob_year="", hair="", eyes="", race="", sex="", height="", weight="",):
+        """
+        returns a boolean based on if there is a match between the parameters and the instance's details
+        :param first_name: the first name of the search target
+        :param last_name: the last name of the search target
+        :param middle_name: the middle name of the search target
+        :param name_to_call_me: the nickname of the search target
+        :param home_city: the home city of the search target
+        :param home_state: the home state of the search target
+        :param home_zip: the home zip of the search target
+        :param dob: the date of birth of the search target
+        :param dob_year: the date of birth year of the search target
+        :param hair: the hair color of the search target
+        :param eyes: the eye color of the search target
+        :param race: the race/ethnicity of the search target
+        :param sex: the sex of the search target
+        :param height: the approximate height of the search target
+        :param weight: the weight of the search target
+        :return: True if over 75% of the search terms match (to all given paramas), false otherwise
+        """
+        YEAR_THRESH = 5
+        total = 0
+        correct = 0
+        if first_name != "":
+            if self.stringAllignment(first_name, self.first_name):
+                correct += 1
+            total += 1
+        if last_name != "":
+            if self.stringAllignment(last_name, self.last_name):
+                correct += 1
+            total += 1
+        if middle_name != "":
+            if self.stringAllignment(middle_name, self.middle_name):
+                correct += 1
+            total += 1
+        if name_to_call_me != "":
+            if self.stringAllignment(name_to_call_me, self.name_to_call_me):
+                correct += 1
+            total += 1
+        if home_city != "":
+            if home_city != self.home_city:
+                correct += 1
+            total += 1
+        if home_state != "":
+            if home_state != self.home_state:
+                correct += 1
+            total += 1
+        if home_zip != "":
+            if self.zipMatch(home_zip, self.home_zip):
+                correct += 1
+            total += 1
+        if dob != "":
+            if self.dobMatch(dob, self.dob):
+                correct += 1
+            total += 1
+        if dob_year != "":
+            if self.dob_year - YEAR_THRESH <= dob_year <= self.dob_year + YEAR_THRESH:
+                correct += 1
+            total += 1
+        if hair != "":
+            if hair == self.hair:
+                correct += 1
+            total += 1
+        if eyes != "":
+            if eyes == self.eyes:
+                correct += 1
+            total += 1
+        if race != "":
+            if race == self.race:
+                correct += 1
+            total += 1
+        if sex != "":
+            if sex == self.sex:
+                correct += 1
+            total += 1
+        if height != "":
+            if self.heightMatch(height, self.height):
+                correct += 1
+            total += 1
+        if weight != "":
+            if self.weightMatch(weight, self.weight):
+                correct += 1
+            total += 1
+        if correct/total >= 0.75:
+            return True
+        else:
+            return False
+
+    def weightMatch(self, input_weight, attached_weight):
+        """
+        checks if a given weight is within the acceptable threshold
+        :param input_weight: the weight of the search target
+        :param attached_weight: the weight of the class
+        :return: True if within the threshold, False otherwise
+        """
+        WEIGHT_THRESH = 30
+        return attached_weight - WEIGHT_THRESH <= input_weight <= attached_weight + WEIGHT_THRESH
+
+    def heightMatch(self, input_height, attached_height):
+        """
+        checks if a given height is within the acceptable threshold
+        :param input_height: the height of the search target
+        :param attached_height: the height of the class
+        :return: True if within the threshold, False otherwise
+        """
+        HEIGHT_THRESH = 3
+        return attached_height - HEIGHT_THRESH <= input_height <= attached_height + HEIGHT_THRESH
+
+    def dobMatch(self, input_dob, attached_dob):
+        """
+        returns true if some fields match, false otherwise
+        :param input_dob: the search dob
+        :param attached_dob: the class dob
+        :return: True if a match is determined, False otherwise
+        """
+        YEAR_THRESH = 5
+        if input_dob.day != attached_dob.day:
+            return False
+        if input_dob.month != attached_dob.month:
+            return False
+        if not attached_dob.year - YEAR_THRESH <= input_dob.year <= attached_dob.year + YEAR_THRESH:
+            return False
+        return True
+
+
+    def zipMatch(self, input_zip, attached_zip):
+        """
+        checks if two zips are within a reasonable distance of one another
+        :param input_zip: the zip given as a search term
+        :param attached_zip: the zip in the class
+        :return: True if within the zone, false otherwise
+        """
+        return input_zip == attached_zip
+
+    def stringAllignment(self, str_one, str_two):
+        """
+        Checks allignment between two strings
+        :param str_one: first string (the passed in search term)
+        :param str_two: second string (the class name_field)
+        :return: True if there is a 70% match, False otherwise
+        """
+        str1_len = len(str_one)
+        str2_len = len(str_two)
+
+        if not str1_len or not str2_len: return max(str1_len, str2_len)
+
+        # each entry is a row
+        matrix = [0] * (str2_len + 1)
+        for i in range(str2_len + 1):
+            matrix[i] = [0] * (str1_len + 1)
+
+        for i in range(str1_len + 1):
+            matrix[0][i] = i
+
+        for i in range(str2_len + 1):
+            matrix[i][0] = i
+
+        for j in range(1, str1_len + 1):
+            for i in range(1, str2_len + 1):
+                cost = 0
+                if str_one[j - 1] != str_two[i - 1]:
+                    cost += 1
+                above = matrix[i - 1][j] + 1
+                left = matrix[i][j - 1] + 1
+                diag = matrix[i - 1][j - 1] + cost
+                matrix[i][j] = min(above, left, diag)
+
+        val = matrix[str1_len - 1][str2_len - 1]
+        if val / str2_len >= .70:
+            return True
+        return False
+
+
     class Meta:
         #  managed = False
         db_table = 'TAKEMEHOME'
