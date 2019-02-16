@@ -28,7 +28,7 @@ function getSearchQuery() {
 
     // Check that any input is niether empty nor non-numeric.
     if (isNaN(ageStr) || isNaN(weightStr) || isNaN(heightStr) || ageStr === "" || weightStr === "" || ageStr === "") {
-        alert("Please, enter numbers only for age, height, and weight");
+        alert("Please, enter only numbers for age, height, and weight.");
         return
     }
 
