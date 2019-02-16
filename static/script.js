@@ -26,7 +26,7 @@ function getSearchQuery() {
     const heightStr = document.getElementById("height").value;
     const weightStr = document.getElementById("weight").value;
 
-
+    // Check that any input is niether empty nor non-numeric.
     if (isNaN(ageStr) || isNaN(weightStr) || isNaN(heightStr) || ageStr === "" || weightStr === "" || ageStr === "") {
         alert("Please, enter numbers only for age, height, and weight");
         return
@@ -43,11 +43,11 @@ function getSearchQuery() {
     var weightUnitBox = document.getElementById("weight_unit");
     var weightUnit = weightUnitBox.options[weightUnitBox.selectedIndex].value;
 
-    if (heightUnit === "2") {
+    if (heightUnit === "2") { // If the height unit is 'cms', convert it to 'inches' since the database requires 'inches'.
         height = cmsToInches(height)
     }
 
-    if (weightUnit === "2") {
+    if (weightUnit === "2") { // If the height unit is 'kgs', convert it to 'lbs' since the database requires 'lbs'.
         weight = kgsToLbs(weight)
     }
 
@@ -64,6 +64,7 @@ function getSearchQuery() {
     const hairColor = selectedHairColor === "1" ? "Brown" : "Black";
 
 
+    // Construct Search Query after all checks pass.
     const query = {
         "age": age,
         "weight": weight,
@@ -78,8 +79,6 @@ function getSearchQuery() {
     document.getElementById("search_form").hidden = true;
     document.getElementById("search_title").innerHTML = "Search Results";
     return query
-
-
 }
 
 
