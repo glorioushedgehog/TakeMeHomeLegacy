@@ -4,7 +4,7 @@
     <title> Hack DFW </title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/static/style.css">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -23,18 +23,41 @@
             $('.sidenav').sidenav();
         });
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var elems = document.querySelectorAll('.dropdown-trigger');
+            var instances = M.Dropdown.init(elems, options);
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+        });
+    </script>
 </head>
 
 <body>
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper green darken-1">
-                <a href="#!" class="brand-logo"><strong>Test</strong></a>
+                <a href="#!" class="brand-logo"><strong>Take Me Home</strong></a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
                         class="material-icons">arrow_drop_down</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a class="modal-trigger" href="#admin-modal">About...</a></li>
-
+                    <li>
+                        <div class="center row">
+                            <div class="col s12 ">
+                                <div class="row" id="topbarsearch">
+                                    <div class="input-field col s6 s12 green-text">
+                                        <i class="green-text material-icons prefix">search</i>
+                                        <input type="text" placeholder="..." id="autocomplete-input"
+                                            class="autocomplete white-text" style="border-bottom: 1px solid #fff">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -43,14 +66,222 @@
 
     <ul class="sidenav" id="mobile-demo">
         <h4 style="color: rgb(27, 157, 209); font-weight: bold;">UDMS-HS</h4>
-        <li><a class="modal-trigger" href="#admin-modal">About...</a></li>
     </ul>
 
     <div class="container">
-        
+        <div class="row">
+            <div class="col s12 m5">
 
-        
+                <div class="card-panel">
+                    <table class="fixedheight">
+                        <tr>
+                            <td>
+                                <strong> Age </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="age">
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Height </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="height">
+                                <select class="browser-default" id="height_unit">
+                                    <option value="1">inches</option>
+                                    <option value="2">cms</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Weight </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="weight">
+                                <select class="browser-default" id="weight_unit">
+                                    <option value="1">lbs</option>
+                                    <option value="2">kg</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                Sex
+                            </td>
+                            <td> 
+                                <select class="browser-default" id="sex">
+                                    <option value="1">Male</option>
+                                    <option value="2">Female</option>
+                                </select>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Hair Color </strong>
+                            </td>
+                            <td>
+                                <select class="browser-default" id="hair_color">
+                                    <option value="1">Brown</option>
+                                    <option value="2">Black</option>
+                                </select>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <strong>Eye Color </strong>
+                            </td>
+                            <td>
+                                <select class="browser-default" id="eye_color">
+                                    <option value="1">Brown</option>
+                                    <option value="2">Black</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <a class="btn btn-small waves-effect waves-light green" id="search_btn"
+                                    onclick="getSearchQuery()">Search</i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
+                                    onclick="resetVals()">Reset</i></a>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+                </div>
+            </div>
+        </div>
+
     </div>
+
+
+
+
+    <!-- Modal Structure -->
+    <div id="details_modal" class="modal">
+        <div class="modal-content">
+            <h4>Details for {{ name }} </h4>
+            <div class="row">
+                <div class="input-field col s6">
+                    <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
+                </div>
+                <div class="input-field col s6">
+                    <table id="personal_detials">
+                        <tr>
+                            <td> <strong>Last Name</strong> </td>
+                        </tr>
+                        <tr>
+                            <td> <strong>First Name</strong> </td>
+                        </tr>
+                        <tr>
+                            <td> <strong>Date of Birth</strong> </td>
+                        </tr>
+                        <tr>
+                            <td> <strong>Sex</strong> </td>
+                        </tr>
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+    </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.modal').modal();
+        })
+        function resetVals() {
+            document.getElementById("age").value = ""
+            document.getElementById("height").value = ""
+            document.getElementById("weight").value = "";
+        }
+
+        function getSearchQuery() {
+            const ageStr = document.getElementById("age").value
+            const heightStr = document.getElementById("height").value
+            const weightStr = document.getElementById("weight").value
+
+
+            if (isNaN(ageStr) || isNaN(weightStr) || isNaN(heightStr) || ageStr=="" || weightStr=="" || ageStr=="") {
+                alert("Please, enter numbers only for age, height, and weight")
+                return
+            }
+
+            const age = parseInt(ageStr, 10)
+            var height = parseInt(heightStr, 10)
+            var weight = parseInt(weightStr, 10)
+
+
+            var heightUnitBox = document.getElementById("height_unit");
+            var heightUnit = heightUnitBox.options[heightUnitBox.selectedIndex].value;
+
+            var weightUnitBox = document.getElementById("weight_unit");
+            var weightUnit = weightUnitBox.options[weightUnitBox.selectedIndex].value;
+
+            if(heightUnit == 2) {
+                height = cmsToInches(height)
+            }
+
+            if(weightUnit == 2) {
+                weight = kgsToLbs(weight)
+            }
+
+            var sexOptionBox = document.getElementById("sex");
+            var selectedSex = sexOptionBox.options[sexOptionBox.selectedIndex].value;
+            const sex = selectedSex == 1 ? "Male" : "Female"
+
+            var eyeColorBox = document.getElementById("eye_color");
+            var selectedEyeColor = eyeColorBox.options[eyeColorBox.selectedIndex].value;
+            const eyeColor = selectedEyeColor == 1 ? "Brown" : "Black"
+
+            var hairColorBox = document.getElementById("hair_color");
+            var selectedHairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
+            const hairColor = selectedHairColor == 1 ? "Brown" : "Black"
+
+    
+            const query = {
+                "age" : age,
+                "weight": weight,
+                "height": height,
+                "sex": sex,
+                "eyeColor": eyeColor,
+                "hairColor": hairColor
+            }
+
+            console.log(query)
+            return query
+
+
+        }
+
+
+        function cmsToInches(cms) {
+            return cms / 2.54
+        }
+
+        function kgsToLbs(kgs) {
+            return kgs * 2.204
+        }
+        function inchesToCms(inches) {
+            return inches * 2.54
+        }
+    </script>
 
 </body>
 
