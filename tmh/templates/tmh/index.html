@@ -3,16 +3,17 @@
 <head>
     <title> Hack DFW </title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="{% static style.css %}">
-
     <!-- Compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../../../static/style.css" media="screen,projection" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+    <!-- Our css and js files-->
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <script src="{% static "script.js" %}"></script>
+
+    <!--Import Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="{% static "script.js" %}"></script>
 </head>
 
 <body>
@@ -116,11 +117,11 @@
                         <tr>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="search_btn"
-                                    onclick="getSearchQuery()">Search</i></a>
+                                    onclick="getSearchQuery()">Search</a>
                             </td>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
-                                    onclick="resetVals()">Reset</i></a>
+                                    onclick="resetVals()">Reset</a>
                             </td>
                         </tr>
 
@@ -137,13 +138,14 @@
                     <div class="col s12 m7">
                         <div class="card horizontal small">
                             <div class="card-image">
-                                <img src="../../../static/unnamed.jpg">
+                                <img src="{% static "unnamed.jpg" %}">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
                                     <p>Height: 5' 10"</p>
                                     <p>Weight: 130lbs</p>
                                     <p>Age: 20</p>
+                                    <p>Sex: M</p>
                                     <p>Hair: Black</p>
                                 </div>
                                 <div class="card-action">
@@ -157,13 +159,14 @@
                     <div class="col s12 m7">
                         <div class="card horizontal small">
                             <div class="card-image">
-                                <img src="../../../static/IMG_20170425_111424.jpg">
+                                <img src="{% static "IMG_20170425_111424.jpg" %}">
                             </div>
                             <div class="card-stacked">
                                 <div class="card-content">
                                     <p>Height: 6' 2"</p>
                                     <p>Weight: 130lbs</p>
                                     <p>Age: 22</p>
+                                    <p>Sex: M</p>
                                     <p>Hair: Brown</p>
                                 </div>
                                 <div class="card-action">
