@@ -4,8 +4,6 @@ from json import loads
 
 from .models import Person
 from .models import ImageData
-#from .forms import UploadImageForm
-from facial_recognition.infer import get_embedding_from_file
 
 
 def index(request):
@@ -14,23 +12,6 @@ def index(request):
     context = {'persons': persons, 'images': images}
     return render(request, 'tmh/index.html', context)
 
-
-def facial_recognition(request):
-    persons = Person.objects.all()
-    images = ImageData.objects.all()
-    context = {'persons': persons, 'images': images}
-    return render(request, 'tmh/facial_recognition.html', context)
-
-
-def upload_image(request):
-    if request.method == 'POST':
-        form = UploadImageForm(request.POST, request.FILES)
-        if form.is_valid():
-            embedding = get_embedding_from_file(request.FILES['image'])
-            return render(request, 'tmh/facial_recognition.html', {'form': form, 'embedding': embedding})
-    else:
-        form = UploadImageForm()
-    return render(request, 'tmh/facial_recognition.html', {'form': form})
 
 def search_by_demographics(request):
     if request.method == 'POST':
@@ -99,13 +80,6 @@ def search_by_demographics(request):
         return render(request, 'tmh/index.html', context)
 
 
-def upload_image(request):
-     if request.method == 'POST':
-         form = UploadImageForm(request.POST, request.FILES)
-         if form.is_valid():
-             embedding = get_embedding_from_file(request.FILES['image'])
-             return render(request, 'tmh/facial_recognition.html', {'form': form, 'embedding': embedding})
-     else:
-         form = UploadImageForm()
-     return render(request, 'tmh/facial_recognition.html', {'form': form})
 
+def search_by_picture(request):
+    return None

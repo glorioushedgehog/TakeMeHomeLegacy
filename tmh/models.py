@@ -297,7 +297,7 @@ class Person(models.Model):
 
 class ImageData(models.Model):
     primarykey = models.CharField(db_column='PrimaryKey', max_length=22)
-    picture = models.ImageField(db_column='PictureURL', upload_to='static/')
+    picture = models.ImageField(db_column='PictureURL', upload_to='tmh/static')
     embedding = models.TextField(db_column='Embedding', blank=True, null=True)
 
     class Meta:
