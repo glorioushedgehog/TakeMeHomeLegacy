@@ -285,7 +285,7 @@ class Person(models.Model):
                 matrix[i][j] = min(above, left, diag)
 
         val = matrix[str1_len - 1][str2_len - 1]
-        if val / str2_len >= .70:
+        if val / str2_len <= 0.3:
             return True
         return False
 
