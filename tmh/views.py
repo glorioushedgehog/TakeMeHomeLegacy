@@ -13,13 +13,10 @@ def index(request):
     return render(request, 'tmh/index.html', context)
 
 
-def facial_recognition(request):
-    persons = Person.objects.all()
-    images = ImageData.objects.all()
-    context = {'persons': persons, 'images': images}
-    return render(request, 'tmh/facial_recognition.html', context)
-
-
 def search_by_demographics(request):
     if request.method == 'POST':
         print("HEllo")
+
+
+def search_by_picture(request):
+    return None
