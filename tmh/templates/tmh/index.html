@@ -1,10 +1,10 @@
 <html>
-
+{% load static %}
 <head>
     <title> Hack DFW </title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="{% static style.css %}">
 
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
@@ -13,28 +13,10 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-
+    <link type="text/css" rel="stylesheet" href="../../../static/style.css" media="screen,projection" />
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <script>
-        $(document).ready(function () {
-            $('.sidenav').sidenav();
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, options);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-    </script>
+    <script src="{% static script.js %}"></script>
 </head>
 
 <body>
@@ -45,19 +27,7 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i
                         class="material-icons">arrow_drop_down</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li>
-                        <div class="center row">
-                            <div class="col s12 ">
-                                <div class="row" id="topbarsearch">
-                                    <div class="input-field col s6 s12 green-text">
-                                        <i class="green-text material-icons prefix">search</i>
-                                        <input type="text" placeholder="..." id="autocomplete-input"
-                                            class="autocomplete white-text" style="border-bottom: 1px solid #fff">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                   
                 </ul>
             </div>
         </nav>
@@ -69,6 +39,7 @@
     </ul>
 
     <div class="container">
+        <h4 id="search_title">  <strong> Search </strong> </h4>
         <div class="row" id="search_form">
             <div class="col s12 m5">
 
@@ -165,7 +136,48 @@
         </div>
 
         <table id="search_results">
-
+            <tr>
+                <td>
+                    <div class="col s12 m7">
+                        <div class="card horizontal small">
+                            <div class="card-image">
+                                <img src="../../../static/unnamed.jpg">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p>Height: 5' 10"</p>
+                                    <p>Weight: 130lbs</p>
+                                    <p>Age: 20</p>
+                                    <p>Hair: Black</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">Yeabkal Wubshit</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div class="col s12 m7">
+                        <div class="card horizontal small">
+                            <div class="card-image">
+                                <img src="../../../static/IMG_20170425_111424.jpg">
+                            </div>
+                            <div class="card-stacked">
+                                <div class="card-content">
+                                    <p>Height: 6' 2"</p>
+                                    <p>Weight: 130lbs</p>
+                                    <p>Age: 22</p>
+                                    <p>Hair: Brown</p>
+                                </div>
+                                <div class="card-action">
+                                    <a href="#">Jack Baumann</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </table>
 
     </div>
@@ -204,91 +216,6 @@
         <div class="modal-footer">
         </div>
     </div>
-    </div>
-
-    <script>
-        $(document).ready(function () {
-            $('.modal').modal();
-        })
-        function resetVals() {
-            document.getElementById("age").value = ""
-            document.getElementById("height").value = ""
-            document.getElementById("weight").value = "";
-        }
-
-        function getSearchQuery() {
-            const ageStr = document.getElementById("age").value
-            const heightStr = document.getElementById("height").value
-            const weightStr = document.getElementById("weight").value
-
-
-            if (isNaN(ageStr) || isNaN(weightStr) || isNaN(heightStr) || ageStr=="" || weightStr=="" || ageStr=="") {
-                alert("Please, enter numbers only for age, height, and weight")
-                return
-            }
-
-            const age = parseInt(ageStr, 10)
-            var height = parseInt(heightStr, 10)
-            var weight = parseInt(weightStr, 10)
-
-
-            var heightUnitBox = document.getElementById("height_unit");
-            var heightUnit = heightUnitBox.options[heightUnitBox.selectedIndex].value;
-
-            var weightUnitBox = document.getElementById("weight_unit");
-            var weightUnit = weightUnitBox.options[weightUnitBox.selectedIndex].value;
-
-            if(heightUnit == 2) {
-                height = cmsToInches(height)
-            }
-
-            if(weightUnit == 2) {
-                weight = kgsToLbs(weight)
-            }
-
-            var sexOptionBox = document.getElementById("sex");
-            var selectedSex = sexOptionBox.options[sexOptionBox.selectedIndex].value;
-            const sex = selectedSex == 1 ? "M" : "F"
-
-            var eyeColorBox = document.getElementById("eye_color");
-            var selectedEyeColor = eyeColorBox.options[eyeColorBox.selectedIndex].value;
-            const eyeColor = selectedEyeColor == 1 ? "Brown" : "Black"
-
-            var hairColorBox = document.getElementById("hair_color");
-            var selectedHairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
-            const hairColor = selectedHairColor == 1 ? "Brown" : "Black"
-
-    
-            const query = {
-                "age" : age,
-                "weight": weight,
-                "height": height,
-                "sex": sex,
-                "eyeColor": eyeColor,
-                "hairColor": hairColor
-            }
-
-            console.log(query)
-
-            document.getElementById("search_form").hidden = true
-            return query
-
-
-        }
-
-
-        function cmsToInches(cms) {
-            return cms / 2.54
-        }
-
-        function kgsToLbs(kgs) {
-            return kgs * 2.204
-        }
-        function inchesToCms(inches) {
-            return inches * 2.54
-        }
-    </script>
-
 </body>
 
 </html>
