@@ -78,13 +78,13 @@ function getSearchQuery() {
         "weight": weight,
         "height": height,
         "sex": sex,
-        "eyeColor": eyeColor,
-        "hairColor": hairColor,
-        "lastName": lastNameStr,
-        "firstName": firstNameStr,
-        "homeCity": homeCity,
-        "homeState": homeState,
-        "nameToCallMe": nameToCallMeStr,
+        "eyes": eyeColor,
+        "hair": hairColor,
+        "last_name": lastNameStr,
+        "first_name": firstNameStr,
+        "home_city": homeCity,
+        "home_state": homeState,
+        "name_to_call_me": nameToCallMeStr,
         "race": race
     };
 
