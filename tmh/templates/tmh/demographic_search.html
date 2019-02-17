@@ -1,7 +1,29 @@
 {% if persons %}
-    <ul>
-        {% for person in persons %}
-            <li>{{ person.first_name }}</li>
-        {% endfor %}
-    </ul>
+    {% for person in persons %}
+        <td>
+            <div class="col s12 m7">
+                <div class="card horizontal">
+                    <div class="card-image">
+                        {% for image in images %}
+                            {%  if person.primarykey == image.primarykey %}
+                                <img src="{{ image.picture.url }}">
+                            {%  endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="card-stacked">
+                        <div class="card-content">
+                            <p>Height: {{ person.height }}</p>
+                            <p>Weight: {{ person.weight }}</p>
+                            <p>Age: {{ person.dob_year }}</p>
+                            <p>Sex: {{ person.sex }}</p>
+                            <p>Hair: {{ person.hair }}</p>
+                        </div>
+                        <div class="card-action">
+                            <a class="modal-trigger" href="#details_modal">{{ person.first_name }} {{ person.last_name }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </td>
+    {% endfor %}
 {% endif %}
