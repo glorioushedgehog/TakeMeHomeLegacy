@@ -112,20 +112,21 @@
             }
 
             const fileAsB64 = getBase64(file);
-
+            console.log(fileAsB64);
             sendFileRequest(fileAsB64)
         }
 
         function sendFileRequest(fileAsB64) {
             const url = 'http://127.0.0.1:8000/search_by_picture';
             const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-            console.log(token);
             $.ajax({
                 method: 'POST',
                 url: url,
-                body: fileAsB64,
+                data: fileAsB64,
                 headers: {
-                    'X-CSRFToken': token
+                    'X-CSRFToken': token,
+                    'Content-length': fileAsB64.length,
+                    'Content-type': 'text/plain'
                 }
             }).done(function (returnHTML) {
                 document.getElementById("search_form").hidden = true;
