@@ -1,4 +1,5 @@
 $(document).ready(function () {
+    document.getElementById("search-in-process").hidden = true;
     $('.sidenav').sidenav();
     $('.modal').modal();
     $('select').material_select();
@@ -155,6 +156,7 @@ function resetImageVals() {
 }
 
 function getPictureSearchQuery() {
+    document.getElementById("search-in-process").hidden = false;
     const file = document.getElementById("image").files[0];
 
     if (file === undefined) {
@@ -190,6 +192,7 @@ function sendFileRequest(fileAsB64) {
             'X-CSRFToken': token
         }
     }).done(function (returnHTML) {
+        document.getElementById("search-in-process").hidden = true;
         document.getElementById("search_form").hidden = true;
         document.getElementById("search_results").hidden = false;
         document.getElementById("search_results").innerHTML = returnHTML;
