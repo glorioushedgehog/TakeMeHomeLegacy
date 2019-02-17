@@ -1,41 +1,22 @@
 <html>
-
+{% load static %}
 <head>
     {% csrf_token %}
     <title> Hack DFW </title>
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <!-- Compiled and minified Materialize CSS and JavaScript -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link rel="stylesheet" href="/static/style.css">
-
-    <!-- Compiled and minified JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <!-- Google Charts-->
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <!-- Our css and js files-->
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <script src="{% static "script.js" %}"></script>
+
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <script>
-        $(document).ready(function () {
-            $('.sidenav').sidenav();
-        });
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, null);
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('select').material_select();
-        });
-    </script>
 </head>
 
 <body>
@@ -74,11 +55,11 @@
                         <tr>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="search_btn"
-                                   onclick="getSearchQuery()">Search</a>
+                                   onclick="getPictureSearchQuery()">Search</a>
                             </td>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
-                                   onclick="resetVals()">Reset</a>
+                                   onclick="resetImageVals()">Reset</a>
                             </td>
                         </tr>
 
@@ -92,54 +73,6 @@
         <table id="search_results"></table>
 
     </div>
-
-    <script>
-        function resetVals() {
-            document.getElementById("image").value = ""
-        }
-
-        function getSearchQuery() {
-            const file = document.getElementById("image").files[0];
-
-            if (file === undefined) {
-                alert("Please upload a file");
-                return
-            }
-
-            if (file.type !== "image/jpeg" && file.type !== "image/png") {
-                alert("Please upload a PNG or JPEG");
-                return
-            }
-
-            sendAsBase64(file, function (e) {
-                fileAsB64 = e.target.result
-                console.log(fileAsB64)
-                sendFileRequest(fileAsB64)
-            });
-        }
-
-        function sendAsBase64(file, callbackFunc) {
-            let fr = new FileReader();
-            fr.readAsDataURL(file);
-            fr.onload = callbackFunc;
-        }
-
-        function sendFileRequest(fileAsB64) {
-            const url = 'http://127.0.0.1:8000/search_by_picture';
-            const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-            $.ajax({
-                method: 'POST',
-                url: url,
-                data: fileAsB64,
-                headers: {
-                    'X-CSRFToken': token
-                }
-            }).done(function (returnHTML) {
-                document.getElementById("search_form").hidden = true;
-                document.getElementById("search_title").innerHTML = returnHTML
-            })
-        }
-    </script>
 
 </body>
 

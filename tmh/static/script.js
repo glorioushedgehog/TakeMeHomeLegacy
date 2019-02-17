@@ -106,3 +106,48 @@ function resetViews() {
     document.getElementById("search_results").hidden = true;
     document.getElementById("search_title").innerHTML = "Search";
 }
+
+function resetImageVals() {
+    document.getElementById("image").value = ""
+}
+
+function getPictureSearchQuery() {
+    const file = document.getElementById("image").files[0];
+
+    if (file === undefined) {
+        alert("Please upload a file");
+        return
+    }
+
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
+        alert("Please upload a PNG or JPEG");
+        return
+    }
+
+    sendAsBase64(file, function (e) {
+        let fileAsB64 = e.target.result;
+        sendFileRequest(fileAsB64);
+    });
+}
+
+function sendAsBase64(file, callbackFunc) {
+    let fr = new FileReader();
+    fr.readAsDataURL(file);
+    fr.onload = callbackFunc;
+}
+
+function sendFileRequest(fileAsB64) {
+    const url = 'http://127.0.0.1:8000/search_by_picture';
+    const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: fileAsB64,
+        headers: {
+            'X-CSRFToken': token
+        }
+    }).done(function (returnHTML) {
+        document.getElementById("search_form").hidden = true;
+        document.getElementById("search_title").innerHTML = returnHTML
+    })
+}
