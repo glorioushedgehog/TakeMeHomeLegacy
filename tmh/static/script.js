@@ -111,8 +111,14 @@ function getSearchQuery() {
         
     }).then(function (returnHTML) {
         document.getElementById("search_form").hidden = true;
-        document.getElementById("search_results").hidden = false;
-        document.getElementById("search_results").innerHTML = returnHTML;
+        if(returnHTML === undefined) {
+            
+            document.getElementById("failed_search").hidden = false
+        } else {
+            
+            document.getElementById("search_results").hidden = false;
+            document.getElementById("search_results").innerHTML = returnHTML;
+        }
     })
 }
 
@@ -132,6 +138,7 @@ function inchesToCms(inches) {
 function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
+    document.getElementById("failed_search").hidden = true
 }
 
 function resetImageVals() {
