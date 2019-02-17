@@ -111,9 +111,17 @@
                 return
             }
 
-            const fileAsB64 = getBase64(file);
-            console.log(fileAsB64);
-            sendFileRequest(fileAsB64)
+            sendAsBase64(file, function (e) {
+                fileAsB64 = e.target.result
+                console.log(fileAsB64)
+                sendFileRequest(fileAsB64)
+            });
+        }
+
+        function sendAsBase64(file, callbackFunc) {
+            let fr = new FileReader();
+            fr.readAsDataURL(file);
+            fr.onload = callbackFunc;
         }
 
         function sendFileRequest(fileAsB64) {
@@ -124,21 +132,12 @@
                 url: url,
                 data: fileAsB64,
                 headers: {
-                    'X-CSRFToken': token,
-                    'Content-length': fileAsB64.length,
-                    'Content-type': 'text/plain'
+                    'X-CSRFToken': token
                 }
             }).done(function (returnHTML) {
                 document.getElementById("search_form").hidden = true;
                 document.getElementById("search_title").innerHTML = returnHTML
             })
-        }
-
-        function getBase64(file) {
-            let fr = new FileReader();
-            fr.readAsDataURL(file);
-
-            return fr.result
         }
     </script>
 

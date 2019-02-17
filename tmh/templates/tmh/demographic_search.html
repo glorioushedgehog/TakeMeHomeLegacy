@@ -1,0 +1,7 @@
+{% if persons %}
+    <ul>
+        {% for person in persons %}
+            <li>{{ person.first_name }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
