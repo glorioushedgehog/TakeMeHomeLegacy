@@ -10,23 +10,37 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function resetVals() {
-    document.getElementById("age").value = "";
+    document.getElementById("dob_year").value = "";
     document.getElementById("height").value = "";
     document.getElementById("weight").value = "";
 }
 
 function getSearchQuery() {
-    const ageStr = document.getElementById("age").value;
+    const dob_yearStr = document.getElementById("dob_year").value
     const heightStr = document.getElementById("height").value;
     const weightStr = document.getElementById("weight").value;
+    const lastNameStr = document.getElementById("last_name").value;
+    const firstNameStr = document.getElementById("first_name").value;
+    const nameToCallMeStr = document.getElementById("name_to_call_me").value;
+    const homeCity = document.getElementById("home_city").value;
+
+    var homeStateOptionBox = document.getElementById("state");
+    var selectedState = homeStateOptionBox.options[homeStateOptionBox.selectedIndex].value;
+    const homeState = selectedState;
+
+    const homeZip = document.getElementById("zip").value;
+
+    var raceOptionBox = document.getElementById("race");
+    var selectedRace = raceOptionBox.options[raceOptionBox.selectedIndex].value;
+    const race = selectedRace;
 
     // Check that any input is niether empty nor non-numeric.
-    if (isNaN(ageStr) || isNaN(weightStr) || isNaN(heightStr) || ageStr === "" || weightStr === "" || ageStr === "") {
-        alert("Please, enter only numbers for age, height, and weight.");
+    if (isNaN(dob_yearStr) || isNaN(weightStr) || isNaN(heightStr) || isNaN(homeZip)) {
+        alert("Please, enter only numbers for DOB (year), height, zip, and weight.");
         return
     }
 
-    const age = parseInt(ageStr, 10);
+    const dobYear = parseInt(dob_yearStr, 10);
     var height = parseInt(heightStr, 10);
     var weight = parseInt(weightStr, 10);
 
@@ -60,12 +74,18 @@ function getSearchQuery() {
 
     // Construct Search Query after all checks pass.
     const query = {
-        "age": age,
+        "dob_year": dobYear,
         "weight": weight,
         "height": height,
         "sex": sex,
         "eyeColor": eyeColor,
-        "hairColor": hairColor
+        "hairColor": hairColor,
+        "lastName": lastNameStr,
+        "firstName": firstNameStr,
+        "homeCity": homeCity,
+        "homeState": homeState,
+        "nameToCallMe": nameToCallMeStr,
+        "race": race
     };
 
     console.log(query);
@@ -81,11 +101,13 @@ function getSearchQuery() {
             'Content-length': query.length,
             'Content-type': 'application/json'
         }
-    }).done(function (returnHTML) {
+    }).catch(function(error) {
+        
+    }).then(function (returnHTML) {
         document.getElementById("search_form").hidden = true;
         document.getElementById("search_results").hidden = false;
         document.getElementById("search_results").innerHTML = returnHTML;
-    });
+    })
 }
 
 
@@ -105,4 +127,49 @@ function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
     document.getElementById("search_title").innerHTML = "Search";
+}
+
+function resetImageVals() {
+    document.getElementById("image").value = ""
+}
+
+function getPictureSearchQuery() {
+    const file = document.getElementById("image").files[0];
+
+    if (file === undefined) {
+        alert("Please upload a file");
+        return
+    }
+
+    if (file.type !== "image/jpeg" && file.type !== "image/png") {
+        alert("Please upload a PNG or JPEG");
+        return
+    }
+
+    sendAsBase64(file, function (e) {
+        let fileAsB64 = e.target.result;
+        sendFileRequest(fileAsB64);
+    });
+}
+
+function sendAsBase64(file, callbackFunc) {
+    let fr = new FileReader();
+    fr.readAsDataURL(file);
+    fr.onload = callbackFunc;
+}
+
+function sendFileRequest(fileAsB64) {
+    const url = 'http://127.0.0.1:8000/search_by_picture';
+    const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: fileAsB64,
+        headers: {
+            'X-CSRFToken': token
+        }
+    }).done(function (returnHTML) {
+        document.getElementById("search_form").hidden = true;
+        document.getElementById("search_title").innerHTML = returnHTML
+    })
 }

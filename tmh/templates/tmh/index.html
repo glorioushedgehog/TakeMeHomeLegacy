@@ -1,5 +1,6 @@
 <html>
 {% load static %}
+
 <head>
     {% csrf_token %}
     <title> Hack DFW </title>
@@ -32,8 +33,8 @@
 
     </div>
 
-    <div class="container">
-        <h4 id="search_title">  <strong> Search </strong> </h4>
+    <div class="container" id="main_container">
+        <h4 id="search_title"> <strong> Search </strong> </h4>
         <div class="row" id="search_form">
             <div class="col s12 m5">
 
@@ -41,10 +42,111 @@
                     <table class="fixedheight">
                         <tr>
                             <td>
-                                <strong> Age </strong>
+                                <strong> Last Name </strong>
                             </td>
                             <td>
-                                <input type="text" id="age">
+                                <input type="text" id="last_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> First Name </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="first_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Name to Call Me </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="name_to_call_me">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Date of Birth (Year) </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="dob_year">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Home City </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="home_city">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Home State </strong>
+                            </td>
+                            <td>
+                                <select class="browser-default" id="state">
+                                    <option value="AL">Alabama</option>
+                                    <option value="AK">Alaska</option>
+                                    <option value="AZ">Arizona</option>
+                                    <option value="AR">Arkansas</option>
+                                    <option value="CA">California</option>
+                                    <option value="CO">Colorado</option>
+                                    <option value="CT">Connecticut</option>
+                                    <option value="DE">Delaware</option>
+                                    <option value="DC">District Of Columbia</option>
+                                    <option value="FL">Florida</option>
+                                    <option value="GA">Georgia</option>
+                                    <option value="HI">Hawaii</option>
+                                    <option value="ID">Idaho</option>
+                                    <option value="IL">Illinois</option>
+                                    <option value="IN">Indiana</option>
+                                    <option value="IA">Iowa</option>
+                                    <option value="KS">Kansas</option>
+                                    <option value="KY">Kentucky</option>
+                                    <option value="LA">Louisiana</option>
+                                    <option value="ME">Maine</option>
+                                    <option value="MD">Maryland</option>
+                                    <option value="MA">Massachusetts</option>
+                                    <option value="MI">Michigan</option>
+                                    <option value="MN">Minnesota</option>
+                                    <option value="MS">Mississippi</option>
+                                    <option value="MO">Missouri</option>
+                                    <option value="MT">Montana</option>
+                                    <option value="NE">Nebraska</option>
+                                    <option value="NV">Nevada</option>
+                                    <option value="NH">New Hampshire</option>
+                                    <option value="NJ">New Jersey</option>
+                                    <option value="NM">New Mexico</option>
+                                    <option value="NY">New York</option>
+                                    <option value="NC">North Carolina</option>
+                                    <option value="ND">North Dakota</option>
+                                    <option value="OH">Ohio</option>
+                                    <option value="OK">Oklahoma</option>
+                                    <option value="OR">Oregon</option>
+                                    <option value="PA">Pennsylvania</option>
+                                    <option value="RI">Rhode Island</option>
+                                    <option value="SC">South Carolina</option>
+                                    <option value="SD">South Dakota</option>
+                                    <option value="TN">Tennessee</option>
+                                    <option value="TX">Texas</option>
+                                    <option value="UT">Utah</option>
+                                    <option value="VT">Vermont</option>
+                                    <option value="VA">Virginia</option>
+                                    <option value="WA">Washington</option>
+                                    <option value="WV">West Virginia</option>
+                                    <option value="WI">Wisconsin</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </td>
+
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Home Zip </strong>
+                            </td>
+                            <td>
+                                <input type="text" id="zip">
                             </td>
                         </tr>
                         <tr>
@@ -109,6 +211,21 @@
                                     <option value="2">Black</option>
                                 </select>
                             </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong> Race </strong>
+                            </td>
+                            <td>
+                                <select class="browser-default" id="race">
+                                    <option value="I">American Indian or Alaska Native</option>
+                                    <option value="A">Asian</option>
+                                    <option value="B">Black or African American</option>
+                                    <option value="P">Native Hawaiian or Other Pacific Islander</option>
+                                    <option value="W">White</option>
+                                </select>
+                            </td>
+
                         </tr>
                         <tr>
                             <td>

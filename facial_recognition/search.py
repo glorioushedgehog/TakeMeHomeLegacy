@@ -3,7 +3,8 @@ from PIL import Image
 from io import BytesIO
 import base64
 
-#from facial_recognition import detect_face, facenet
+
+# from facial_recognition import detect_face, facenet
 
 
 def infer(image):
@@ -42,7 +43,11 @@ def infer(image):
 
 
 def search(base64_image):
-    print(base64_image)
+    base64_image = str(base64_image)
+    strings_to_remove = ['b\'data:image/png;base64,', 'b\'data:image/jpg;base64,', 'b\'data:image/jpeg;base64,']
+    for string in strings_to_remove:
+        if base64_image.startswith(string):
+            base64_image = base64_image[len(string):]
     image = Image.open(BytesIO(base64.b64decode(base64_image)))
     image.save("test.jpg")
-    #embedding = infer(image)
+    # embedding = infer(image)
