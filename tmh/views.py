@@ -4,7 +4,7 @@ from json import loads
 
 from .models import Person
 from .models import ImageData
-from facial_recognition import search
+# from facial_recognition import search
 
 
 def index(request):
