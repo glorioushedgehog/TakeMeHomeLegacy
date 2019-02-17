@@ -70,23 +70,23 @@ def search_by_demographics(request):
         if "weight" in data:
             weight = data["weight"]
 
-        # persons = []
-        # for peep in people:
-        #     if peep.search(first_name, last_name, middle_name, name_to_call_me, home_city,
-        #                                          home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
-        #                                          weight):
-        #         persons.append(peep)
-        # index = 0
-        # for indiv in persons:
-        #     id = indiv.primarykey
-        #     newQuerySet = ImageData.objects.filter(primarykey=id)
-        #     if index == 0:
-        #         images = newQuerySet
-        #         index += 1
-        #     else:
-        #         images.union(newQuerySet)
-        persons = people
-        images = ImageData.objects.all()
+        persons = []
+        for peep in people:
+            if peep.search(first_name, last_name, middle_name, name_to_call_me, home_city,
+                                                 home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
+                                                 weight):
+                persons.append(peep)
+        index = 0
+        for indiv in persons:
+            id = indiv.primarykey
+            newQuerySet = ImageData.objects.filter(primarykey=id)
+            if index == 0:
+                images = newQuerySet
+                index += 1
+            else:
+                images = images.union(newQuerySet)
+        # persons = people
+        # images = ImageData.objects.all()
         context = {'persons': persons, 'images': images}
         return render(request, 'tmh/demographic_search.html', context)
 
