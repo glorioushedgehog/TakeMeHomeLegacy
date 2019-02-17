@@ -66,7 +66,7 @@ def search_by_demographics(request):
         valid_people = filter(lambda x: x.search(first_name, last_name, middle_name, name_to_call_me, home_city,
                                                  home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
                                                  weight), people)
-        images = ""
+        images = None
         index = 0
         for persons in valid_people:
             id = persons.primarykey
