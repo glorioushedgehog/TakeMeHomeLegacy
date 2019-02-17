@@ -63,15 +63,16 @@ def search_by_demographics(request):
             height = data["height"]
         if "weight" in data:
             weight = data["weight"]
-        valid_people = filter(lambda x: x.search(first_name, last_name, middle_name, name_to_call_me, home_city,
+
+        persons = []
+        for peep in people:
+            if peep.search(first_name, last_name, middle_name, name_to_call_me, home_city,
                                                  home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
-                                                 weight), people)
-        for person in valid_people:
-            print(person.first_name, person.last_name)
-        images = "NO VALID PEOPLE"
+                                                 weight):
+                persons.append(peep)
         index = 0
-        for persons in valid_people:
-            id = persons.primarykey
+        for indiv in persons:
+            id = indiv.primarykey
             newQuerySet = ImageData.objects.filter(primarykey=id)
             if index == 0:
                 images = newQuerySet
@@ -79,7 +80,7 @@ def search_by_demographics(request):
             else:
                 images.union(newQuerySet)
 
-        context = {'persons': valid_people, 'images': images}
+        context = {'persons': persons, 'images': images}
         return render(request, 'tmh/demographic_search.html', context)
 
 

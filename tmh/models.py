@@ -200,7 +200,6 @@ class Person(models.Model):
             if self.weightMatch(weight, self.weight):
                 correct += 1
             total += 1
-        print(self.first_name, self.last_name, correct/total)
         if correct/total >= 0.6:
             return True
         else:
