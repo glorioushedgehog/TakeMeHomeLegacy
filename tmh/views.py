@@ -78,7 +78,7 @@ def search_by_demographics(request):
                 images.union(newQuerySet)
 
         context = {'persons': valid_people, 'images': images}
-        return render(request, 'tmh/index.html', context)
+        return render(request, 'tmh/demographic_search.html', context)
 
 
 
