@@ -4,6 +4,7 @@ from django.shortcuts import render
 
 from .models import Person
 from .models import ImageData
+from facial_recognition import search
 
 
 def index(request):
@@ -19,4 +20,11 @@ def search_by_demographics(request):
 
 
 def search_by_picture(request):
+    if request.is_ajax():
+        print("yes")
+    search_result = search.search(request.body)
     return None
+
+
+def upload(request):
+    return render(request, 'tmh/imageupload.html', {})
