@@ -29,25 +29,20 @@ from __future__ import print_function
 import imageio as imageio
 import numpy
 from PIL import Image
-# from scipy import misc
 import tensorflow as tf
 import numpy as np
-import sys
 import os
 import copy
-import argparse
-from src import facenet
-from src.align import detect_face
+
+from facial_recognition import detect_face, facenet
 
 
-def main(args):
-    images = load_and_align_data(args.image_files, args.image_size, args.margin, args.gpu_memory_fraction)
+def get_embeddings(image_files):
+    images = load_and_align_data(image_files)
     with tf.Graph().as_default():
-
         with tf.Session() as sess:
-
             # Load the model
-            facenet.load_model(args.model)
+            facenet.load_model("C:\\Users\\Paul\\PycharmProjects\\TakeMeHomeDjango\\facial_recognition\\model.pb")
 
             # Get input and output tensors
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
@@ -56,37 +51,26 @@ def main(args):
 
             # Run forward pass to calculate embeddings
             feed_dict = {images_placeholder: images, phase_train_placeholder: False}
-            emb = sess.run(embeddings, feed_dict=feed_dict)
+            embeddings = sess.run(embeddings, feed_dict=feed_dict)
 
-            nrof_images = len(args.image_files)
+            nrof_images = len(image_files)
 
-            print('Images:')
-            for i in range(nrof_images):
-                print('%1d: %s' % (i, args.image_files[i]))
-            print('')
-
-            # Print distance matrix
-            print('Distance matrix')
-            print('    ', end='')
-            for i in range(nrof_images):
-                print('    %1d     ' % i, end='')
-            print('')
-            for i in range(nrof_images):
-                print('%1d  ' % i, end='')
-                for j in range(nrof_images):
-                    dist = np.sqrt(np.sum(np.square(np.subtract(emb[i, :], emb[j, :]))))
-                    print('  %1.4f  ' % dist, end='')
-                print('')
+            if len(embeddings) != nrof_images:
+                print("could not embedd all images")
+                return
+            return embeddings
 
 
-def load_and_align_data(image_paths, image_size, margin, gpu_memory_fraction):
+def load_and_align_data(image_paths):
     minsize = 20  # minimum size of face
     threshold = [0.6, 0.7, 0.7]  # three steps's threshold
     factor = 0.709  # scale factor
+    margin = 44
+    image_size = 160
 
     print('Creating networks and loading parameters')
     with tf.Graph().as_default():
-        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_memory_fraction)
+        gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=1.0)
         sess = tf.Session(config=tf.ConfigProto(gpu_options=gpu_options, log_device_placement=False))
         with sess.as_default():
             pnet, rnet, onet = detect_face.create_mtcnn(sess, None)
@@ -115,22 +99,3 @@ def load_and_align_data(image_paths, image_size, margin, gpu_memory_fraction):
         img_list.append(prewhitened)
     images = np.stack(img_list)
     return images
-
-
-def parse_arguments(argv):
-    parser = argparse.ArgumentParser()
-
-    parser.add_argument('model', type=str,
-                        help='Could be either a directory containing the meta_file and ckpt_file or a model protobuf (.pb) file')
-    parser.add_argument('image_files', type=str, nargs='+', help='Images to compare')
-    parser.add_argument('--image_size', type=int,
-                        help='Image size (height, width) in pixels.', default=160)
-    parser.add_argument('--margin', type=int,
-                        help='Margin for the crop around the bounding box (height, width) in pixels.', default=44)
-    parser.add_argument('--gpu_memory_fraction', type=float,
-                        help='Upper bound on the amount of GPU memory that will be used by the process.', default=1.0)
-    return parser.parse_args(argv)
-
-
-if __name__ == '__main__':
-    main(parse_arguments(sys.argv[1:]))

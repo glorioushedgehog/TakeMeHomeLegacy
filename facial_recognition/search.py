@@ -65,12 +65,12 @@ def infer(image):
 def distance(embedding, string_embedding):
     try:
         nums = string_embedding.strip().split(',')
-        other_embedding = np.asarray(map(float, nums))
+        other_embedding = np.asarray(list(map(float, nums)))
         diff = np.subtract(embedding, other_embedding)
     except Exception:
         return sys.maxsize
     # Euclidian distance
-    dist = np.sum(np.square(diff), 1)
+    dist = np.sum(np.square(diff))
     return dist
 
 
@@ -88,7 +88,9 @@ def search(image_datas, base64_image):
         return []
     keys = []
     for image_data in image_datas:
-        if distance(embedding, image_data.embedding) < distance_threshold:
+        a_distance = distance(embedding, image_data.embedding)
+        print(a_distance)
+        if a_distance < distance_threshold:
             keys.append(image_data.primarykey)
     return keys
 

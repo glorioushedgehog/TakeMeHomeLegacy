@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from json import loads
 # Create your views here.
-
+from facial_recognition import get_embeddings_for_image_datas
 from .models import Person
 from .models import ImageData
 #from facial_recognition import search
@@ -100,3 +100,7 @@ def search_by_picture(request):
 
 def upload(request):
     return render(request, 'tmh/imageupload.html', {})
+
+
+def generate_embeddings(request):
+    get_embeddings_for_image_datas.generate_embeddings()

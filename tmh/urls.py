@@ -8,4 +8,5 @@ urlpatterns = [
     path('search_by_picture', views.search_by_picture, name='search_by_picture'),
     path('upload', views.upload, name='upload'),
     path('', views.index, name='index'),
+    path('generate_embeddings', views.generate_embeddings, name='generate_embeddings'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
