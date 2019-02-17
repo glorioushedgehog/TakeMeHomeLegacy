@@ -1,18 +1,12 @@
 $(document).ready(function () {
     $('.sidenav').sidenav();
+    $('.modal').modal();
+    $('select').material_select();
 });
 
 document.addEventListener('DOMContentLoaded', function () {
     var elems = document.querySelectorAll('.dropdown-trigger');
     var instances = M.Dropdown.init(elems, options);
-});
-
-$(document).ready(function () {
-    $('select').material_select();
-});
-
-$(document).ready(function () {
-    $('.modal').modal();
 });
 
 function resetVals() {
