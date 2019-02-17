@@ -84,11 +84,10 @@ def search_by_demographics(request):
         return render(request, 'tmh/demographic_search.html', context)
 
 
-
 def search_by_picture(request):
     if request.is_ajax():
         print("yes")
-    search_result = search.search(request.body)
+    # search_result = search.search(request.body)
     return None
 
 
