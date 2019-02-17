@@ -169,6 +169,7 @@ function sendFileRequest(fileAsB64) {
         }
     }).done(function (returnHTML) {
         document.getElementById("search_form").hidden = true;
-        document.getElementById("search_result").innerHTML = returnHTML
+        document.getElementById("search_results").hidden = false;
+        document.getElementById("search_results").innerHTML = returnHTML;
     })
 }

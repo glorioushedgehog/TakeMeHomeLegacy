@@ -1,4 +1,5 @@
 import os
+import sys
 
 import imageio
 import numpy as np
@@ -9,6 +10,8 @@ import tensorflow as tf
 
 
 from facial_recognition import detect_face, facenet
+
+distance_threshold = 1.0
 
 
 def infer(image):
@@ -56,11 +59,22 @@ def infer(image):
             # Run forward pass to calculate embeddings
             feed_dict = {images_placeholder: images, phase_train_placeholder: False}
             emb = sess.run(embeddings, feed_dict=feed_dict)
-            print(emb[0])
-    return []
+    return emb[0]
 
 
-def search(base64_image):
+def distance(embedding, string_embedding):
+    try:
+        nums = string_embedding.strip().split(',')
+        other_embedding = np.asarray(map(float, nums))
+        diff = np.subtract(embedding, other_embedding)
+    except Exception:
+        return sys.maxsize
+    # Euclidian distance
+    dist = np.sum(np.square(diff), 1)
+    return dist
+
+
+def search(image_datas, base64_image):
     base64_image = str(base64_image)
     strings_to_remove = ['b\'data:image/png;base64,', 'b\'data:image/jpg;base64,', 'b\'data:image/jpeg;base64,']
     for string in strings_to_remove:
@@ -70,3 +84,11 @@ def search(base64_image):
     image_url = "image.jpg"
     image.save(image_url)
     embedding = infer(image_url)
+    if embedding is None:
+        return []
+    keys = []
+    for image_data in image_datas:
+        if distance(embedding, image_data.embedding) < distance_threshold:
+            keys.append(image_data.primarykey)
+    return keys
+
