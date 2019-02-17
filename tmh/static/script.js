@@ -76,10 +76,22 @@ function getSearchQuery() {
 
     console.log(query);
 
-    document.getElementById("search_form").hidden = true;
-    document.getElementById("search_results").hidden = false;
-    document.getElementById("search_title").innerHTML = "Search Results";
-    return query
+    const url = 'http://127.0.0.1:8000/search_by_demographics';
+    const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+        method: 'POST',
+        url: url,
+        data: JSON.stringify(query),
+        headers: {
+            'X-CSRFToken': token,
+            'Content-length': query.length,
+            'Content-type': 'application/json'
+        }
+    }).done(function (returnHTML) {
+        document.getElementById("search_form").hidden = true;
+        document.getElementById("search_results").hidden = false;
+        document.getElementById("search_results").innerHTML = returnHTML;
+    });
 }
 
 
