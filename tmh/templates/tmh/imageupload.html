@@ -1,6 +1,7 @@
 <html>
 
 <head>
+    {% csrf_token %}
     <title> Hack DFW </title>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
@@ -26,7 +27,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var elems = document.querySelectorAll('.dropdown-trigger');
-            var instances = M.Dropdown.init(elems, options);
+            var instances = M.Dropdown.init(elems, null);
         });
     </script>
 
@@ -67,16 +68,17 @@
                                 <strong> Image </strong>
                             </td>
                             <td>
+                            {% csrf_token %}
                                 <input type="file" id="image">
                             </td>
                         <tr>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="search_btn"
-                                   onclick="getSearchQuery()">Search</i></a>
+                                   onclick="getSearchQuery()">Search</a>
                             </td>
                             <td>
                                 <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
-                                   onclick="resetVals()">Reset</i></a>
+                                   onclick="resetVals()">Reset</a>
                             </td>
                         </tr>
 
@@ -97,38 +99,43 @@
         }
 
         function getSearchQuery() {
-            const file = document.getElementById("image").files[0]
+            const file = document.getElementById("image").files[0];
 
-            if (file == "") {
-                alert("Please upload a file")
+            if (file === undefined) {
+                alert("Please upload a file");
                 return
             }
 
             if (file.type !== "image/jpeg" && file.type !== "image/png") {
-                alert("Please upload a PNG or JPEG")
+                alert("Please upload a PNG or JPEG");
                 return
             }
 
-            const fileAsB64 = getBase64(file)
-
+            const fileAsB64 = getBase64(file);
+            console.log(fileAsB64);
             sendFileRequest(fileAsB64)
         }
 
         function sendFileRequest(fileAsB64) {
-            const url = 'FILL THIS IN PAUL'
-
+            const url = 'http://127.0.0.1:8000/search_by_picture';
+            const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
             $.ajax({
                 method: 'POST',
                 url: url,
-                data: fileAsB64
+                data: fileAsB64,
+                headers: {
+                    'X-CSRFToken': token,
+                    'Content-length': fileAsB64.length,
+                    'Content-type': 'text/plain'
+                }
             }).done(function (returnHTML) {
-                document.getElementById("search_form").hidden = true
+                document.getElementById("search_form").hidden = true;
                 document.getElementById("search_title").innerHTML = returnHTML
             })
         }
 
         function getBase64(file) {
-            let fr = new FileReader()
+            let fr = new FileReader();
             fr.readAsDataURL(file);
 
             return fr.result

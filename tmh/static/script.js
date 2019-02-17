@@ -92,4 +92,5 @@ function inchesToCms(inches) {
 function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
+    document.getElementById("search_title").innerHTML = "Search";
 }
