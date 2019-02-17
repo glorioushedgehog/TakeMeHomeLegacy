@@ -33,6 +33,12 @@ def search_by_demographics(request):
         sex = ""
         height = ""
         weight = ""
+        remove_list = []
+        for entry in data:
+            if data[entry] == None:
+                remove_list.append(entry)
+        for entry in remove_list:
+            data.pop(entry, None)
         if "first_name" in data:
             first_name = data["first_name"]
         if "last_name" in data:
