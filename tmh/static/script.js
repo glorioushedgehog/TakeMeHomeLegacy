@@ -13,6 +13,12 @@ function resetVals() {
     document.getElementById("dob_year").value = "";
     document.getElementById("height").value = "";
     document.getElementById("weight").value = "";
+    document.getElementById("zip").value = "";
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("home_city").value = "";
+    document.getElementById("name_to_call_me").value = "";
+
 }
 
 function getSearchQuery() {
@@ -126,7 +132,6 @@ function inchesToCms(inches) {
 function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
-    document.getElementById("search_title").innerHTML = "Search";
 }
 
 function resetImageVals() {
@@ -170,6 +175,7 @@ function sendFileRequest(fileAsB64) {
         }
     }).done(function (returnHTML) {
         document.getElementById("search_form").hidden = true;
-        document.getElementById("search_title").innerHTML = returnHTML
+        document.getElementById("search_results").hidden = false;
+        document.getElementById("search_results").innerHTML = returnHTML;
     })
 }

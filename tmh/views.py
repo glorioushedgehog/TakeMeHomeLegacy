@@ -4,7 +4,7 @@ from json import loads
 
 from .models import Person
 from .models import ImageData
-from facial_recognition import search
+#from facial_recognition import search
 
 
 def index(request):
@@ -90,12 +90,18 @@ def search_by_demographics(request):
         return render(request, 'tmh/demographic_search.html', context)
 
 
-
 def search_by_picture(request):
-    if request.is_ajax():
-        print("yes")
-    search_result = search.search(request.body)
-    return None
+    keys = []
+    #keys = search.search(ImageData.objects.all(), request.body)
+
+    persons = Person.objects.none()
+    images = ImageData.objects.none()
+    for key in keys:
+        persons = persons.union(Person.objects.filter(primarykey=key))
+        images = images.union(Person.objects.filter(primarykey=key))
+
+    context = {'persons': persons, 'images': images}
+    return render(request, 'tmh/demographic_search.html', context)
 
 
 def upload(request):
