@@ -19,7 +19,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body>
+<body onload="displayLoadingAnim()">
     <div class="navbar-fixed">
         <nav>
             <div class="nav-wrapper green darken-1">
@@ -37,7 +37,17 @@
         <h4 style="color: rgb(27, 157, 209); font-weight: bold;">UDMS-HS</h4>
     </ul>
 
-    <div class="container">
+	<div class="spinner-layer spinner-red" id="loadinganimation">
+        <div class="circle-clipper left">
+			<div class="circle"></div>
+        </div><div class="gap-patch">
+			<div class="circle"></div>
+        </div><div class="circle-clipper right">
+			<div class="circle"></div>
+        </div>
+    </div>
+
+    <div class="container" id="imagesearchform">
         <h4 id="search_title">  <strong> Search </strong> </h4>
         <div class="row" id="search_form">
             <div class="col s12 m5">

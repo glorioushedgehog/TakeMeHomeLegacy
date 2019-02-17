@@ -9,6 +9,15 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.Dropdown.init(elems, options);
 });
 
+function displayLoadingAnim() {
+    window.onload = displayMainContent()
+}
+
+function displayMainContent() {
+    document.getElementById("loadinganimation").style.display = "none";
+    document.getElementById("imagesearchform").style.display = "block";
+}
+
 function resetVals() {
     document.getElementById("dob_year").value = "";
     document.getElementById("height").value = "";
