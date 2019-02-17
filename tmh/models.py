@@ -200,7 +200,8 @@ class Person(models.Model):
             if self.weightMatch(weight, self.weight):
                 correct += 1
             total += 1
-        if correct/total >= 0.75:
+        print(self.first_name, self.last_name, correct/total)
+        if correct/total >= 0.6:
             return True
         else:
             return False
@@ -284,7 +285,7 @@ class Person(models.Model):
                 diag = matrix[i - 1][j - 1] + cost
                 matrix[i][j] = min(above, left, diag)
 
-        val = matrix[str1_len - 1][str2_len - 1]
+        val = matrix[str2_len - 1][str1_len - 1]
         if val / str2_len <= 0.3:
             return True
         return False
