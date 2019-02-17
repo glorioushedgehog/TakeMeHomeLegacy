@@ -141,19 +141,19 @@ class Person(models.Model):
         total = 0
         correct = 0
         if first_name != "":
-            if self.stringAllignment(first_name, self.first_name):
+            if self.stringAlignment(first_name, self.first_name):
                 correct += 1
             total += 1
         if last_name != "":
-            if self.stringAllignment(last_name, self.last_name):
+            if self.stringAlignment(last_name, self.last_name):
                 correct += 1
             total += 1
         if middle_name != "":
-            if self.stringAllignment(middle_name, self.middle_name):
+            if self.stringAlignment(middle_name, self.middle_name):
                 correct += 1
             total += 1
         if name_to_call_me != "":
-            if self.stringAllignment(name_to_call_me, self.name_to_call_me):
+            if self.stringAlignment(name_to_call_me, self.name_to_call_me):
                 correct += 1
             total += 1
         if home_city != "":
@@ -252,9 +252,9 @@ class Person(models.Model):
         """
         return input_zip == attached_zip
 
-    def stringAllignment(self, str_one, str_two):
+    def stringAlignment(self, str_one, str_two):
         """
-        Checks allignment between two strings
+        Checks alignment between two strings
         :param str_one: first string (the passed in search term)
         :param str_two: second string (the class name_field)
         :return: True if there is a 70% match, False otherwise
@@ -278,7 +278,7 @@ class Person(models.Model):
         for j in range(1, str1_len + 1):
             for i in range(1, str2_len + 1):
                 cost = 0
-                if str_one[j - 1] != str_two[i - 1]:
+                if str_one[j - 1].lower() != str_two[i - 1].lower():
                     cost += 1
                 above = matrix[i - 1][j] + 1
                 left = matrix[i][j - 1] + 1
