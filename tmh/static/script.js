@@ -13,6 +13,12 @@ function resetVals() {
     document.getElementById("dob_year").value = "";
     document.getElementById("height").value = "";
     document.getElementById("weight").value = "";
+    document.getElementById("zip").value = "";
+    document.getElementById("first_name").value = "";
+    document.getElementById("last_name").value = "";
+    document.getElementById("home_city").value = "";
+    document.getElementById("name_to_call_me").value = "";
+
 }
 
 function getSearchQuery() {
