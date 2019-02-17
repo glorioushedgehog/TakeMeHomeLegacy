@@ -126,7 +126,6 @@ function inchesToCms(inches) {
 function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
-    document.getElementById("search_title").innerHTML = "Search";
 }
 
 function resetImageVals() {
@@ -170,6 +169,6 @@ function sendFileRequest(fileAsB64) {
         }
     }).done(function (returnHTML) {
         document.getElementById("search_form").hidden = true;
-        document.getElementById("search_title").innerHTML = returnHTML
+        document.getElementById("search_result").innerHTML = returnHTML
     })
 }
