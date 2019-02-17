@@ -143,6 +143,7 @@ class Person(models.Model):
         if first_name != "":
             if self.stringAlignment(first_name, self.first_name):
                 correct += 1
+                print("first_name correct")
             total += 1
         if last_name != "":
             if self.stringAlignment(last_name, self.last_name):
@@ -200,6 +201,7 @@ class Person(models.Model):
             if self.weightMatch(weight, self.weight):
                 correct += 1
             total += 1
+        print(self.first_name, self.last_name, correct/total)
         if correct/total >= 0.6:
             return True
         else:
