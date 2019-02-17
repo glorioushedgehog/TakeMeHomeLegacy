@@ -158,11 +158,11 @@ class Person(models.Model):
                 correct += 1
             total += 1
         if home_city != "":
-            if home_city != self.home_city:
+            if home_city.strip() == self.home_city:
                 correct += 1
             total += 1
         if home_state != "":
-            if home_state != self.home_state:
+            if home_state == self.home_state:
                 correct += 1
             total += 1
         if home_zip != "":
@@ -202,7 +202,7 @@ class Person(models.Model):
                 correct += 1
             total += 1
         print(self.first_name, self.last_name, correct/total)
-        if correct/total >= 0.6:
+        if correct/total >= 0.5:
             return True
         else:
             return False

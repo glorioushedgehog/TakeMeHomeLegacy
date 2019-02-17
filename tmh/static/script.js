@@ -80,11 +80,11 @@ function getSearchQuery() {
 
     var eyeColorBox = document.getElementById("eye_color");
     var selectedEyeColor = eyeColorBox.options[eyeColorBox.selectedIndex].value;
-    const eyeColor = selectedEyeColor === "1" ? "Brown" : "Black";
+    const eyeColor = selectedEyeColor;
 
     var hairColorBox = document.getElementById("hair_color");
     var selectedHairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
-    const hairColor = selectedHairColor === "1" ? "Brown" : "Black";
+    const hairColor = selectedHairColor;
 
 
     // Construct Search Query after all checks pass.
