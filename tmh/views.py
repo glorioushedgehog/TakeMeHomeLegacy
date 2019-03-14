@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from json import loads
 # Create your views here.
-#from facial_recognition import get_embeddings_for_image_datas
+from facial_recognition import get_embeddings_for_image_datas
 from .models import Person
 from .models import ImageData
 from facial_recognition import search
@@ -92,9 +92,7 @@ def search_by_demographics(request):
 
 
 def search_by_picture(request):
-    keys = []
     keys = search.search(ImageData.objects.all(), request.body)
-
     persons = Person.objects.none()
     images = ImageData.objects.none()
     for key in keys:
