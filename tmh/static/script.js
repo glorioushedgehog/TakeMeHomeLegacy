@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function displayLoadingAnim() {
-    window.onload = displayMainContent()
+    window.onload = displayMainContent;
 }
 
 function displayMainContent() {
@@ -20,52 +20,49 @@ function displayMainContent() {
 }
 
 function resetVals() {
-    document.getElementById("dob_year").value = "";
-    document.getElementById("height").value = "";
-    document.getElementById("weight").value = "";
-    document.getElementById("zip").value = "";
-    document.getElementById("first_name").value = "";
-    document.getElementById("last_name").value = "";
-    document.getElementById("home_city").value = "";
-    document.getElementById("name_to_call_me").value = "";
-
+    $("#dob_year").val("");
+    $("#height").val("");
+    $("#weight").val("");
+    $("#zip").val("");
+    $("#first_name").val("");
+    $("#last_name").val("");
+    $("#home_city").val("");
+    $("#name_to_call_me").val("");
 }
 
 function getSearchQuery() {
-    const dob_yearStr = document.getElementById("dob_year").value
-    const heightStr = document.getElementById("height").value;
-    const weightStr = document.getElementById("weight").value;
-    const lastNameStr = document.getElementById("last_name").value;
-    const firstNameStr = document.getElementById("first_name").value;
-    const nameToCallMeStr = document.getElementById("name_to_call_me").value;
-    const homeCity = document.getElementById("home_city").value;
+    const dob_yearStr = $("#dob_year").val();
+    const heightStr = $("#height").val();
+    const weightStr = $("#weight").val();
+    const lastNameStr = $("#last_name").val();
+    const firstNameStr = $("#first_name").val();
+    const nameToCallMeStr = $("#name_to_call_me").val();
+    const homeCity = $("#home_city").val();
 
-    var homeStateOptionBox = document.getElementById("state");
-    var selectedState = homeStateOptionBox.options[homeStateOptionBox.selectedIndex].value;
-    const homeState = selectedState;
+    const homeStateOptionBox = document.getElementById("state");
+    const homeState = homeStateOptionBox.options[homeStateOptionBox.selectedIndex].value;
 
-    const homeZip = document.getElementById("zip").value;
+    const homeZip = $("#zip").val();
 
-    var raceOptionBox = document.getElementById("race");
-    var selectedRace = raceOptionBox.options[raceOptionBox.selectedIndex].value;
-    const race = selectedRace;
+    const raceOptionBox = $("#race").val();
+    const race = raceOptionBox.options[raceOptionBox.selectedIndex].value;
 
-    // Check that any input is niether empty nor non-numeric.
+    // Check that any input is neither empty nor non-numeric.
     if (isNaN(dob_yearStr) || isNaN(weightStr) || isNaN(heightStr) || isNaN(homeZip)) {
         alert("Please, enter only numbers for DOB (year), height, zip, and weight.");
         return
     }
 
     const dobYear = parseInt(dob_yearStr, 10);
-    var height = parseInt(heightStr, 10);
-    var weight = parseInt(weightStr, 10);
+    let height = parseInt(heightStr, 10);
+    let weight = parseInt(weightStr, 10);
 
 
-    var heightUnitBox = document.getElementById("height_unit");
-    var heightUnit = heightUnitBox.options[heightUnitBox.selectedIndex].value;
+    const heightUnitBox = document.getElementById("height_unit");
+    const heightUnit = heightUnitBox.options[heightUnitBox.selectedIndex].value;
 
-    var weightUnitBox = document.getElementById("weight_unit");
-    var weightUnit = weightUnitBox.options[weightUnitBox.selectedIndex].value;
+    const weightUnitBox = document.getElementById("weight_unit");
+    const weightUnit = weightUnitBox.options[weightUnitBox.selectedIndex].value;
 
     if (heightUnit === "2") { // If the height unit is 'cms', convert it to 'inches' since the database requires 'inches'.
         height = cmsToInches(height)
@@ -75,17 +72,15 @@ function getSearchQuery() {
         weight = kgsToLbs(weight)
     }
 
-    var sexOptionBox = document.getElementById("sex");
-    var selectedSex = sexOptionBox.options[sexOptionBox.selectedIndex].value;
+    const sexOptionBox = document.getElementById("sex");
+    const selectedSex = sexOptionBox.options[sexOptionBox.selectedIndex].value;
     const sex = selectedSex === "1" ? "M" : "F";
 
-    var eyeColorBox = document.getElementById("eye_color");
-    var selectedEyeColor = eyeColorBox.options[eyeColorBox.selectedIndex].value;
-    const eyeColor = selectedEyeColor;
+    const eyeColorBox = document.getElementById("eye_color");
+    const eyeColor = eyeColorBox.options[eyeColorBox.selectedIndex].value;
 
-    var hairColorBox = document.getElementById("hair_color");
-    var selectedHairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
-    const hairColor = selectedHairColor;
+    const hairColorBox = document.getElementById("hair_color");
+    const hairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
 
 
     // Construct Search Query after all checks pass.
@@ -141,10 +136,6 @@ function kgsToLbs(kgs) {
     return kgs * 2.204
 }
 
-function inchesToCms(inches) {
-    return inches * 2.54
-}
-
 function resetViews() {
     document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
@@ -152,7 +143,7 @@ function resetViews() {
 }
 
 function resetImageVals() {
-    document.getElementById("image").value = ""
+    $("#image").val("");
 }
 
 function getPictureSearchQuery() {
