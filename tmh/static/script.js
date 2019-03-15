@@ -1,13 +1,9 @@
 $(document).ready(function () {
-    document.getElementById("search-in-process").hidden = true;
     $('.sidenav').sidenav();
     $('.modal').modal();
-    $('select').material_select();
-});
+    $('select').formSelect();
 
-document.addEventListener('DOMContentLoaded', function () {
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems, options);
+    $('.tabs').tabs();
 });
 
 function displayLoadingAnim() {
