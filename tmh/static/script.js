@@ -40,7 +40,7 @@ function getSearchQuery() {
 
     const homeZip = $("#zip").val();
 
-    const raceOptionBox = $("#race").val();
+    const raceOptionBox = document.getElementById("race");
     const race = raceOptionBox.options[raceOptionBox.selectedIndex].value;
 
     // Check that any input is neither empty nor non-numeric.
@@ -109,11 +109,9 @@ function getSearchQuery() {
             'Content-type': 'application/json'
         }
     }).catch(function(error) {
-        
+        console.log(error);
     }).then(function (returnHTML) {
-        document.getElementById("search_form").hidden = true;
         if(returnHTML === undefined) {
-            
             document.getElementById("failed_search").hidden = false
         } else {
             
@@ -133,7 +131,6 @@ function kgsToLbs(kgs) {
 }
 
 function resetViews() {
-    document.getElementById("search_form").hidden = false;
     document.getElementById("search_results").hidden = true;
     document.getElementById("failed_search").hidden = true
 }
@@ -180,7 +177,6 @@ function sendFileRequest(fileAsB64) {
         }
     }).done(function (returnHTML) {
         document.getElementById("search-in-process").hidden = true;
-        document.getElementById("search_form").hidden = true;
         document.getElementById("search_results").hidden = false;
         document.getElementById("search_results").innerHTML = returnHTML;
     })

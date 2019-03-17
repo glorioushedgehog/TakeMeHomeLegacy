@@ -35,7 +35,7 @@ def search_by_demographics(request):
         weight = ""
         remove_list = []
         for entry in data:
-            if data[entry] == None:
+            if data[entry] is None:
                 remove_list.append(entry)
         for entry in remove_list:
             data.pop(entry, None)
@@ -73,21 +73,44 @@ def search_by_demographics(request):
         persons = []
         for peep in people:
             if peep.search(first_name, last_name, middle_name, name_to_call_me, home_city,
-                                                 home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
-                                                 weight):
+                           home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
+                           weight):
                 persons.append(peep)
-        index = 0
-        for indiv in persons:
-            id = indiv.primarykey
-            newQuerySet = ImageData.objects.filter(primarykey=id)
-            if index == 0:
-                images = newQuerySet
-                index += 1
-            else:
-                images = images.union(newQuerySet)
+
+        from math import ceil
+        large_row_size = 4
+        medium_row_size = 2
+        persons_by_large_row = []
+        for i in range(ceil(len(persons) / large_row_size)):
+            a_row = []
+            for j in range(large_row_size):
+                if i * large_row_size + j >= len(persons):
+                    break
+                a_row.append(persons[i * large_row_size + j])
+            persons_by_large_row.append(a_row)
+
+        persons_by_medium_row = []
+        for i in range(ceil(len(persons) / medium_row_size)):
+            a_row = []
+            for j in range(medium_row_size):
+                if i * medium_row_size + j >= len(persons):
+                    break
+                a_row.append(persons[i * medium_row_size + j])
+            persons_by_medium_row.append(a_row)
+
+        images = ImageData.objects.none()
+        for individual in persons:
+            an_id = individual.primarykey
+            new_query_set = ImageData.objects.filter(primarykey=an_id)
+            images = images.union(new_query_set)
         # persons = people
         # images = ImageData.objects.all()
-        context = {'persons': persons, 'images': images}
+        context = {
+            'persons': persons,
+            'persons_by_large_row': persons_by_large_row,
+            'persons_by_medium_row': persons_by_medium_row,
+            'images': images
+        }
         return render(request, 'tmh/demographic_search.html', context)
 
 

@@ -1,31 +1,62 @@
-<caption><h3> Search Results </h3></caption>
+<h3> Search Results </h3>
+
+{% if persons_by_large_row %}
+    {% for a_row in persons_by_large_row %}
+        <div class="row show-on-large hide-on-med-and-down">
+            {% for person in a_row %}
+            <div class="col s12 m3">
+                {% for image in images %}
+                    {% if person.primarykey == image.primarykey %}
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ image.picture.url }}">
+                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}
+
+{% if persons_by_medium_row %}
+    {% for a_row in persons_by_medium_row %}
+        <div class="row show-on-medium hide-on-large-only hide-on-small-only">
+            {% for person in a_row %}
+            <div class="col s12 m6">
+                {% for image in images %}
+                    {% if person.primarykey == image.primarykey %}
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ image.picture.url }}">
+                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endif %}
+
 {% if persons %}
     {% for person in persons %}
-        <tr>
-            <td>
-                <div>
-                    {% for image in images %}
-                        {% if person.primarykey == image.primarykey %}
-                            <img class="card-image" src="{{ image.picture.url }}">
-                        {% endif %}
-                    {% endfor %}
-                </div>
-
-            </td>
-            <td>
-                <ul>
-                    <li><h5><strong> {{ person.last_name }}, {{ person.first_name }}</strong></h5></li>
-                    <li><strong> Height: </strong> {{ person.height }}</li>
-                    <li><strong> Weight: </strong> {{ person.weight }}</li>
-                    <li><strong> DOB: </strong> {{ person.dob }}</li>
-                    <li><strong> Sex: </strong> {{ person.sex }}</li>
-                    <li><strong> Hair: </strong> {{ person.hair }}</li>
-                    <li><strong> Race: </strong> {{ person.race }}</li>
-                    <li><strong> Address: </strong> {{ person.home_address }} {{ person.home_city }},
-                        {{ person.home_state }} {{ person.home_zip }}</li>
-                    <li><strong> Record Type: </strong> {{ person.record_type }}</li>
-                </ul>
-            </td>
-        </tr>
+        <div class="row show-on-small hide-on-med-and-up">
+            <div class="col s12">
+                {% for image in images %}
+                    {% if person.primarykey == image.primarykey %}
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ image.picture.url }}">
+                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     {% endfor %}
 {% endif %}

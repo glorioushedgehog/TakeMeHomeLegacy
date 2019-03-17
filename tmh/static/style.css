@@ -1,28 +1,30 @@
-.fixedheight td div {
-    height: 20px;
-    overflow: hidden;
+/*.fixedheight td div {*/
+    /*height: 20px;*/
+    /*overflow: hidden;*/
+/*}*/
+/*#search_form{*/
+    /*width: 100%;*/
+    /*height: 600px;*/
+/*}*/
+/*.card-image {*/
+    /*float:right;*/
+    /*max-height: 300px;*/
+    /*max-width: 250px;*/
+/*}*/
+/*.card {*/
+    /*width: 300px;*/
+    /*height: 300px;*/
+/*}*/
+/*td, tr{*/
+    /*width: auto;*/
+/*}*/
+/*#search_results {*/
+    /*width: 500px;*/
+/*}*/
+ul .tab a {
+    color: #2A2A2A !important;
 }
-
-#search_form{
-    width: 100%;
-    height: 600px;
-}
-
-.card-image {
-    float:right;
-    max-height: 300px;
-    max-width: 250px;
-}
-
-.card {
-    width: 300px;
-    height: 300px;
-}
-
-td, tr{
-    width: auto;
-}
-
-#search_results {
-    width: 500px;
+ul .tab .active {
+    color: #d11c00 !important;
+    background-color: #ebffee !important;
 }
