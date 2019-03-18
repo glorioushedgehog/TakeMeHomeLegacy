@@ -114,7 +114,6 @@ function getSearchQuery() {
         if(returnHTML === undefined) {
             document.getElementById("failed_search").hidden = false
         } else {
-            
             document.getElementById("search_results").hidden = false;
             document.getElementById("search_results").innerHTML = returnHTML;
         }
