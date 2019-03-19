@@ -40,7 +40,7 @@
         <a href=#! onclick="resetViews()">Try Again.</a>
     </div>
     <div class="row">
-        <h3> Search </h3>
+        <h3>Search</h3>
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s6"><a class="active" href="#photo_search_tab">By Photo</a></li>
@@ -48,20 +48,57 @@
             </ul>
         </div>
         <div id="photo_search_tab" class="col s12">
-            <div class="card-panel">test</div>
+            <div class="card-panel">
+                <div class="row" id="photo_search_form">
+                    <div class="col s12">
+                        <h4>Search with Facial Recognition</h4>
+                        <table class="fixedheight">
+                            <tr>
+                                <td>
+                                    <strong>Image</strong>
+                                </td>
+                                <td>
+                                    {% csrf_token %}
+                                    <input type="file" id="image">
+                                </td>
+                            </tr>
+                        </table>
+
+                        <div class="preloader-wrapper big active" id="image-search-loading-animation">
+                            <div class="spinner-layer spinner-green-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="gap-patch">
+                                    <div class="circle"></div>
+                                </div>
+                                <div class="circle-clipper right">
+                                    <div class="circle"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <a class="btn btn-small waves-effect waves-light green" id="search_btn"
+                       onclick="getPictureSearchQuery()">Search</a>
+                    <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
+                       onclick="resetImageVals()">Reset</a>
+                    <div id="image_search_results"></div>
+                </div>
+            </div>
         </div>
         <div id="other_search_tab" class="col s12">
-            <div class="row" id="search_form">
-                <div class="col s12">
-                    <ul class="tabs">
-                        <li class="tab col s3"><a class="active" href="#demographics-tab">Demographics</a></li>
-                        <li class="tab col s3"><a href="#name-tab">Name</a></li>
-                        <li class="tab col s3"><a href="#type-tab">Type/Organization</a></li>
-                        <li class="tab col s3"><a href="#address-tab">Address/Phone</a></li>
-                    </ul>
-                </div>
-                <div id="demographics-tab" class="col s12">
-                    <div class="card-panel">
+            <div class="card-panel">
+                <div class="row" id="search_form">
+                    <div class="col s12">
+                        <ul class="tabs">
+                            <li class="tab col s3"><a class="active" href="#demographics-tab">Demographics</a></li>
+                            <li class="tab col s3"><a href="#name-tab">Name</a></li>
+                            <li class="tab col s3"><a href="#type-tab">Type/Organization</a></li>
+                            <li class="tab col s3"><a href="#address-tab">Address/Phone</a></li>
+                        </ul>
+                    </div>
+                    <div id="demographics-tab" class="col s12">
                         <div class="row">
                             <div class="col s12 m6">
                                 <table class="fixedheight">
@@ -132,7 +169,7 @@
 
                                     <tr>
                                         <td>
-                                            <strong>Eye Color </strong>
+                                            <strong>Eye Color</strong>
                                         </td>
                                         <td>
                                             <select class="browser-default" id="eye_color">
@@ -145,7 +182,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <strong> Race </strong>
+                                            <strong>Race</strong>
                                         </td>
                                         <td>
                                             <select class="browser-default" id="race">
@@ -163,9 +200,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="name-tab" class="col s12">
-                    <div class="card-panel">
+                    <div id="name-tab" class="col s12">
                         <div class="row">
                             <div class="col s12 m6">
                                 <table class="fixedheight">
@@ -197,9 +232,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="type-tab" class="col s12">
-                    <div class="card-panel">
+                    <div id="type-tab" class="col s12">
                         <div class="row">
                             <div class="col s12 m6">
                                 <table class="fixedheight">
@@ -242,9 +275,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div id="address-tab" class="col s12">
-                    <div class="card-panel">
+                    <div id="address-tab" class="col s12">
                         <div class="row">
                             <div class="col s12 m6">
                                 <table class="fixedheight">
@@ -329,24 +360,22 @@
                             </div>
                         </div>
                     </div>
+                    <a class="btn btn-small waves-effect waves-light green" id="search_btn"
+                       onclick="getSearchQuery()">Search</a>
+                    <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
+                       onclick="resetVals()">Reset</a>
+                    <div id="search_results"></div>
                 </div>
-
-                <a class="btn btn-small waves-effect waves-light green" id="search_btn"
-                   onclick="getSearchQuery()">Search</a>
-                <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
-                   onclick="resetVals()">Reset</a>
-                <div id="search_results"></div>
             </div>
         </div>
     </div>
-</div>
 
 
-<!-- Modal Structure -->
-<div id="details_modal" class="modal">
-    <div class="modal-content" id="person_details">
+    <div id="details_modal" class="modal">
+        <div class="modal-content" id="person_details">
+        </div>
     </div>
-</div>
+
 </body>
 
 </html>

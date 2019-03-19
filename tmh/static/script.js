@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs();
+    document.getElementById("image-search-loading-animation").style.display = "none";
 });
 
 function displayLoadingAnim() {
@@ -177,7 +178,7 @@ function resetImageVals() {
 }
 
 function getPictureSearchQuery() {
-    document.getElementById("search-in-process").hidden = false;
+    document.getElementById("image-search-loading-animation").style.display = "block";
     const file = document.getElementById("image").files[0];
 
     if (file === undefined) {
@@ -213,8 +214,7 @@ function sendFileRequest(fileAsB64) {
             'X-CSRFToken': token
         }
     }).done(function (returnHTML) {
-        document.getElementById("search-in-process").hidden = true;
-        document.getElementById("search_results").hidden = false;
-        document.getElementById("search_results").innerHTML = returnHTML;
+        document.getElementById("image-search-loading-animation").style.display = "none";
+        $("#image_search_results").html(returnHTML);
     })
 }
