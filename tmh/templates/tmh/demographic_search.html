@@ -4,18 +4,24 @@
     {% for a_row in persons_by_large_row %}
         <div class="row show-on-large hide-on-med-and-down">
             {% for person in a_row %}
-            <div class="col s12 m3">
-                {% for image in images %}
-                    {% if person.primarykey == image.primarykey %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
-                            <div class="card-image">
-                                <img src="{{ image.picture.url }}">
-                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                <div class="col s12 m3">
+                    {% for image in images %}
+                        {% if person.primarykey == image.primarykey %}
+                            <div class="card" onclick="openModal({{ person.primarykey }})">
+                                <div class="card-image">
+                                    <img src="{{ image.picture.url }}">
+                                    <span class="card-title">
+                                        {% if person.name_to_call_me %}
+                                            {{ person.name_to_call_me }}
+                                        {% else %}
+                                            {{ person.first_name }}
+                                        {% endif %}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% endfor %}
         </div>
     {% endfor %}
@@ -25,18 +31,24 @@
     {% for a_row in persons_by_medium_row %}
         <div class="row show-on-medium hide-on-large-only hide-on-small-only">
             {% for person in a_row %}
-            <div class="col s12 m6">
-                {% for image in images %}
-                    {% if person.primarykey == image.primarykey %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
-                            <div class="card-image">
-                                <img src="{{ image.picture.url }}">
-                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                <div class="col s12 m6">
+                    {% for image in images %}
+                        {% if person.primarykey == image.primarykey %}
+                            <div class="card" onclick="openModal({{ person.primarykey }})">
+                                <div class="card-image">
+                                    <img src="{{ image.picture.url }}">
+                                    <span class="card-title">
+                                        {% if person.name_to_call_me %}
+                                            {{ person.name_to_call_me }}
+                                        {% else %}
+                                            {{ person.first_name }}
+                                        {% endif %}
+                                    </span>
+                                </div>
                             </div>
-                        </div>
-                    {% endif %}
-                {% endfor %}
-            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
             {% endfor %}
         </div>
     {% endfor %}
@@ -51,7 +63,13 @@
                         <div class="card" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ image.picture.url }}">
-                                <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
+                                <span class="card-title">
+                                    {% if person.name_to_call_me %}
+                                        {{ person.name_to_call_me }}
+                                    {% else %}
+                                        {{ person.first_name }}
+                                    {% endif %}
+                                </span>
                             </div>
                         </div>
                     {% endif %}

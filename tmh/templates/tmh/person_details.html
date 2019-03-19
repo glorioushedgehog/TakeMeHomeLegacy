@@ -1,11 +1,20 @@
 {% if person %}
-    <h4>{{ person.first_name }} {{ person.last_name }}</h4>
-    <h5>Call me {{ person.name_to_call_me }}</h5>
     <div class="row">
         <div class="col s12 m6">
+            <h4>{{ person.first_name }} {{ person.last_name }}</h4>
             {% if image_data %}
-                <img style="max-height: 40vh; max-width: 100%" src="{{ image_data.picture.url }}">
-                <p>Picture taken on {{ person.picture_date }}</p>
+                <div class="row">
+                    <div class="col s12">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="{{ image_data.picture.url }}">
+                            </div>
+                            <div class="card-content">
+                                <p>Picture taken on {{ person.picture_date }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             {% endif %}
             <table>
                 <tr>
@@ -163,6 +172,9 @@
             </table>
         </div>
         <div class="col s12 m6">
+            {% if person.name_to_call_me %}
+                <h4 class="center-align">Call me {{ person.name_to_call_me }}</h4>
+            {% endif %}
             <strong>Comments</strong>
             <p>{{ person.comments }}</p>
             <table>

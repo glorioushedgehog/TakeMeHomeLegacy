@@ -2,7 +2,6 @@ $(document).ready(function () {
     $('.sidenav').sidenav();
     $('.modal').modal();
     $('select').formSelect();
-
     $('.tabs').tabs();
 });
 
@@ -29,15 +28,9 @@ function resetVals() {
 function getPersonDetails(personPrimaryKey, selector) {
     // get html to display in the details modal
     const url = personPrimaryKey + '/person_details';
-    //const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     $.ajax({
         method: 'GET',
         url: url,
-        // headers: {
-        //     'X-CSRFToken': token,
-        //     'Content-length': query.length,
-        //     'Content-type': 'application/json'
-        // }
     }).catch(function(error) {
         console.log(error);
     }).then(function (returnHTML) {
@@ -112,21 +105,32 @@ function getSearchQuery() {
     const hairColorBox = document.getElementById("hair_color");
     const hairColor = hairColorBox.options[hairColorBox.selectedIndex].value;
 
+    const braceletId = $("#braclet_id").val();
+
+    const recordTypeBox = document.getElementById("record_type");
+    const recordType = recordTypeBox.options[recordTypeBox.selectedIndex].value;
+
+    const organizationBox = document.getElementById("organization");
+    const organization = organizationBox.options[organizationBox.selectedIndex].value;
 
     // Construct Search Query after all checks pass.
     const query = {
         "dob_year": dobYear,
-        "weight": weight,
         "height": height,
+        "weight": weight,
         "sex": sex,
-        "eyes": eyeColor,
         "hair": hairColor,
+        "eyes": eyeColor,
+        "race": race,
         "last_name": lastNameStr,
         "first_name": firstNameStr,
+        "name_to_call_me": nameToCallMeStr,
+        "bracelet_id": braceletId,
+        "record_type": recordType,
+        "organization": organization,
         "home_city": homeCity,
         "home_state": homeState,
-        "name_to_call_me": nameToCallMeStr,
-        "race": race
+        "home_zip": homeZip,
     };
 
     console.log(query);
