@@ -1,0 +1,464 @@
+{% if person %}
+    <h4>{{ person.first_name }} {{ person.last_name }}</h4>
+    <h5>Call me {{ person.name_to_call_me }}</h5>
+    <div class="row">
+        <div class="col s12 m6">
+            {% if image_data %}
+                <img style="max-height: 40vh; max-width: 100%" src="{{ image_data.picture.url }}">
+                <p>Picture taken on {{ person.picture_date }}</p>
+            {% endif %}
+            <table>
+                <tr>
+                    <td><strong>First Name</strong></td>
+                    <td>
+                        {% if person.first_name %}
+                            {{ person.first_name }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Middle Name</strong></td>
+                    <td>
+                        {% if person.middle_name %}
+                            {{ person.middle_name }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Last Name</strong></td>
+                    <td>
+                        {% if person.last_name %}
+                            {{ person.last_name }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Name to call me</strong></td>
+                    <td>
+                        {% if person.name_to_call_me %}
+                            {{ person.name_to_call_me }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Age</strong></td>
+                    <td>
+                        {% if person.age %}
+                            {{ person.age }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Home Address</strong></td>
+                    <td>
+                        {% if person.home_address %}
+                            {{ person.home_address }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Home City</strong></td>
+                    <td>
+                        {% if person.home_city %}
+                            {{ person.home_city }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Home State</strong></td>
+                    <td>
+                        {% if person.home_state %}
+                            {{ person.home_state }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Home Zip</strong></td>
+                    <td>
+                        {% if person.home_zip %}
+                            {{ person.home_zip }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Home Phone</strong></td>
+                    <td>
+                        {% if person.home_phone %}
+                            {{ person.home_phone }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Date of Birth</strong></td>
+                    <td>
+                        {% if person.dob %}
+                            {{ person.dob }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Hair</strong></td>
+                    <td>
+                        {% if person.hair %}
+                            {{ person.hair }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Eyes</strong></td>
+                    <td>
+                        {% if person.eyes %}
+                            {{ person.eyes }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Race</strong></td>
+                    <td>
+                        {% if person.race %}
+                            {{ person.race }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Sex</strong></td>
+                    <td>
+                        {% if person.sex %}
+                            {{ person.sex }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Height</strong></td>
+                    <td>
+                        {% if person.height %}
+                            {{ person.height }} in
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Weight</strong></td>
+                    <td>
+                        {% if person.weight %}
+                            {{ person.weight }} lb
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Record created at</strong></td>
+                    <td>
+                        {% if person.date_created %}
+                            {{ person.date_created }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Last modified at</strong></td>
+                    <td>
+                        {% if person.date_modified %}
+                            {{ person.date_modified }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col s12 m6">
+            <strong>Comments</strong>
+            <p>{{ person.comments }}</p>
+            <table>
+                <tr>
+                    <td><strong>Organization</strong></td>
+                    <td>
+                        {% if person.organization %}
+                            {{ person.organization }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Record Type</strong></td>
+                    <td>
+                        {% if person.record_type %}
+                            {{ person.record_type }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Bracelet ID</strong></td>
+                    <td>
+                        {% if person.braclet_id %}
+                            {{ person.braclet_id }}
+                        {% endif %}
+                    </td>
+                </tr>
+            </table>
+            <h5 class="center-align">Emergency Contacts</h5>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Contact 1</span>
+                            <table>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_1_name %}
+                                            {{ person.emergency_contact_1_name }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cell Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_1_cphone %}
+                                            {{ person.emergency_contact_1_cphone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_1_phone %}
+                                            {{ person.emergency_contact_1_phone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_1_relationship %}
+                                            {{ person.emergency_contact_1_relationship }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_1_address %}
+                                            {{ person.emergency_contact_1_address }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 20px"><strong>Comments</strong></p>
+                            <p>{{ person.emergency_contact_1_comments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Contact 2</span>
+                            <table>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_2_name %}
+                                            {{ person.emergency_contact_2_name }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cell Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_2_cphone %}
+                                            {{ person.emergency_contact_2_cphone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_2_phone %}
+                                            {{ person.emergency_contact_2_phone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_2_relationship %}
+                                            {{ person.emergency_contact_2_relationship }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_2_address %}
+                                            {{ person.emergency_contact_2_address }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 20px"><strong>Comments</strong></p>
+                            <p>{{ person.emergency_contact_2_comments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Contact 3</span>
+                            <table>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_3_name %}
+                                            {{ person.emergency_contact_3_name }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cell Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_3_cphone %}
+                                            {{ person.emergency_contact_3_cphone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_3_phone %}
+                                            {{ person.emergency_contact_3_phone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_3_relationship %}
+                                            {{ person.emergency_contact_3_relationship }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_3_address %}
+                                            {{ person.emergency_contact_3_address }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 20px"><strong>Comments</strong></p>
+                            <p>{{ person.emergency_contact_3_comments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Contact 4</span>
+                            <table>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_4_name %}
+                                            {{ person.emergency_contact_4_name }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cell Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_4_cphone %}
+                                            {{ person.emergency_contact_4_cphone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_4_phone %}
+                                            {{ person.emergency_contact_4_phone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_4_relationship %}
+                                            {{ person.emergency_contact_4_relationship }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_4_address %}
+                                            {{ person.emergency_contact_4_address }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 20px"><strong>Comments</strong></p>
+                            <p>{{ person.emergency_contact_4_comments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    <div class="card">
+                        <div class="card-content">
+                            <span class="card-title">Contact 5</span>
+                            <table>
+                                <tr>
+                                    <td><strong>Name</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_5_name %}
+                                            {{ person.emergency_contact_5_name }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cell Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_5_cphone %}
+                                            {{ person.emergency_contact_5_cphone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phone</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_5_phone %}
+                                            {{ person.emergency_contact_5_phone }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Relationship</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_5_relationship %}
+                                            {{ person.emergency_contact_5_relationship }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Address</strong></td>
+                                    <td>
+                                        {% if person.emergency_contact_5_address %}
+                                            {{ person.emergency_contact_5_address }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="margin-top: 20px"><strong>Comments</strong></p>
+                            <p>{{ person.emergency_contact_5_comments }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+{% endif %}

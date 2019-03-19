@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from json import loads
-# Create your views here.
 from facial_recognition import get_embeddings_for_image_datas
 from tmh import demographic_search
 from .models import Person
@@ -13,6 +12,17 @@ def index(request):
     images = ImageData.objects.all()
     context = {'persons': persons, 'images': images}
     return render(request, 'tmh/index.html', context)
+
+
+def person_details(request, primary_key):
+    a_person = Person.objects.get(pk=primary_key)
+    image_data = None
+    query_set = ImageData.objects.filter(primarykey=primary_key)
+    if query_set.count() > 0:
+        image_data = query_set[0]
+    age = 'TODO'
+    context = {'person': a_person, 'image_data': image_data, 'age': age}
+    return render(request, 'tmh/person_details.html', context)
 
 
 def search_by_demographics(request):

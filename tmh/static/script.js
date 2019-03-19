@@ -26,6 +26,40 @@ function resetVals() {
     $("#name_to_call_me").val("");
 }
 
+function getPersonDetails(personPrimaryKey, selector) {
+    // get html to display in the details modal
+    const url = personPrimaryKey + '/person_details';
+    //const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    $.ajax({
+        method: 'GET',
+        url: url,
+        // headers: {
+        //     'X-CSRFToken': token,
+        //     'Content-length': query.length,
+        //     'Content-type': 'application/json'
+        // }
+    }).catch(function(error) {
+        console.log(error);
+    }).then(function (returnHTML) {
+        if(returnHTML === undefined) {
+            //document.getElementById("failed_search").hidden = false
+        } else {
+            // loading animation would be deactivated here
+            selector.html(returnHTML);
+        }
+    });
+}
+
+function openModal(personPrimaryKey) {
+    const modalElement = $("#details_modal");
+    const instance = M.Modal.getInstance(modalElement);
+    instance.open();
+    const personDetails = $("#person_details");
+    personDetails.html("");
+    // loading animation would be activated here
+    getPersonDetails(personPrimaryKey, personDetails);
+}
+
 function getSearchQuery() {
     const dob_yearStr = $("#dob_year").val();
     const heightStr = $("#height").val();
@@ -97,7 +131,7 @@ function getSearchQuery() {
 
     console.log(query);
 
-    const url = 'http://127.0.0.1:8000/search_by_demographics';
+    const url = '/search_by_demographics';
     const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     $.ajax({
         method: 'POST',
@@ -165,7 +199,7 @@ function sendAsBase64(file, callbackFunc) {
 }
 
 function sendFileRequest(fileAsB64) {
-    const url = 'http://127.0.0.1:8000/search_by_picture';
+    const url = '/search_by_picture';
     const token = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     $.ajax({
         method: 'POST',

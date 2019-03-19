@@ -7,7 +7,7 @@
             <div class="col s12 m3">
                 {% for image in images %}
                     {% if person.primarykey == image.primarykey %}
-                        <div class="card">
+                        <div class="card" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ image.picture.url }}">
                                 <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
@@ -28,7 +28,7 @@
             <div class="col s12 m6">
                 {% for image in images %}
                     {% if person.primarykey == image.primarykey %}
-                        <div class="card">
+                        <div class="card" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ image.picture.url }}">
                                 <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>
@@ -48,7 +48,7 @@
             <div class="col s12">
                 {% for image in images %}
                     {% if person.primarykey == image.primarykey %}
-                        <div class="card">
+                        <div class="card" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ image.picture.url }}">
                                 <span class="card-title">{{ person.name_to_call_me }} ({{ person.first_name }})</span>

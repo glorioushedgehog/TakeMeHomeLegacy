@@ -39,8 +39,19 @@
         Couldn't find any person with the params entered. Please,
         <a href=#! onclick="resetViews()">Try Again.</a>
     </div>
-    <div class="row" id="search_form">
+    <div class="row">
         <h3> Search </h3>
+        <div class="col s12">
+            <ul class="tabs">
+                <li class="tab col s3 "><a class="active" href="#photo_search_tab">By Photo</a></li>
+                <li class="tab col s9"><a href="#other_search_tab">By Demographics / Name / Address</a></li>
+            </ul>
+        </div>
+        <div id="photo_search_tab" class="col s12">
+            <div class="card-panel">test</div>
+        </div>
+        <div id="other_search_tab" class="col s12">
+            <div class="row" id="search_form">
                 <div class="col s12">
                     <ul class="tabs">
                         <li class="tab col s3"><a class="active" href="#demographics-tab">Demographics</a></li>
@@ -420,42 +431,14 @@
                    onclick="resetVals()">Reset</a>
                 <div id="search_results"></div>
             </div>
+        </div>
+    </div>
 </div>
 
 
 <!-- Modal Structure -->
 <div id="details_modal" class="modal">
-    <div class="modal-content">
-        <h4>Details for {{ name }} </h4>
-        <div class="row">
-            <div class="input-field col s6">
-                <img src="https://www.w3schools.com/images/w3schools_green.jpg" alt="W3Schools.com">
-            </div>
-            <div class="input-field col s6">
-                <table id="personal_detials">
-                    <tr>
-                        <td><strong>Last Name</strong></td>
-                        <td id="last_name_val"></td>
-                    </tr>
-                    <tr>
-                        <td><strong>First Name</strong></td>
-                        <td id="first_name_val"></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Date of Birth</strong></td>
-                        <td id="dob_val"></td>
-                    </tr>
-                    <tr>
-                        <td><strong>Sex</strong></td>
-                        <td id="sex_val"></td>
-                    </tr>
-
-                </table>
-            </div>
-
-        </div>
-    </div>
-    <div class="modal-footer">
+    <div class="modal-content" id="person_details">
     </div>
 </div>
 </body>
