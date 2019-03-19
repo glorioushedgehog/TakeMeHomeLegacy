@@ -36,9 +36,9 @@ def search_by_demographics(request):
 
 def search_by_picture(request):
     keys = search.search(ImageData.objects.all(), request.body)
-    persons = Person.objects.none()
+    persons = []
     for key in keys:
-        persons = persons.union(Person.objects.filter(primarykey=key))
+        persons.append(Person.objects.get(pk=key))
     context = context_from_person_list(persons)
     return render(request, 'tmh/demographic_search.html', context)
 

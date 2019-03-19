@@ -175,10 +175,10 @@ function resetViews() {
 
 function resetImageVals() {
     $("#image").val("");
+    $("#image_search_results").html("");
 }
 
 function getPictureSearchQuery() {
-    document.getElementById("image-search-loading-animation").style.display = "block";
     const file = document.getElementById("image").files[0];
 
     if (file === undefined) {
@@ -186,6 +186,7 @@ function getPictureSearchQuery() {
         return
     }
 
+    document.getElementById("image-search-loading-animation").style.display = "block";
     if (file.type !== "image/jpeg" && file.type !== "image/png") {
         alert("Please upload a PNG or JPEG");
         return
