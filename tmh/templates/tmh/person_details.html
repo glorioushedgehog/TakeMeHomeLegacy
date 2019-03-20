@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col s12 m6">
             <h4>{{ person.first_name }} {{ person.last_name }}</h4>
-            {% if image_data %}
+            {% if image_data and image_data.picture %}
                 <div class="row">
                     <div class="col s12">
                         <div class="card">
@@ -173,7 +173,7 @@
         </div>
         <div class="col s12 m6">
             {% if person.name_to_call_me %}
-                <h4 class="center-align">Call me {{ person.name_to_call_me }}</h4>
+                <h4>Call me {{ person.name_to_call_me }}</h4>
             {% endif %}
             <strong>Comments</strong>
             <p>{{ person.comments }}</p>

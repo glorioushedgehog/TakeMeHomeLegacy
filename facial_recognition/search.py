@@ -51,7 +51,7 @@ def infer(image):
     with tf.Graph().as_default():
         with tf.Session() as sess:
             # Load the model
-            facenet.load_model("C:\\Users\\Paul\\PycharmProjects\\TakeMeHomeDjango\\facial_recognition\\model.pb")
+            facenet.load_model("facial_recognition/model.pb")
             # Get input and output tensors
             images_placeholder = tf.get_default_graph().get_tensor_by_name("input:0")
             embeddings = tf.get_default_graph().get_tensor_by_name("embeddings:0")

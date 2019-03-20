@@ -24,6 +24,7 @@ function resetVals() {
     $("#last_name").val("");
     $("#home_city").val("");
     $("#name_to_call_me").val("");
+    $("#search_results").html("");
 }
 
 function getPersonDetails(personPrimaryKey, selector) {
