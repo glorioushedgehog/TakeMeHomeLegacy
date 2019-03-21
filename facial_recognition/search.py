@@ -126,21 +126,8 @@ def search_by_image(image_datas, image_to_search_by):
     the_bytes = bytearray(0)
     for a_chunk in image_to_search_by.chunks():
         the_bytes += a_chunk
-
-    # png = Image.open(io.BytesIO(the_bytes))
-    # png.load()  # required for png.split()
-    # background = Image.new("RGB", png.size, (255, 255, 255))
-    # split_image = png.split()
-    # if len(split_image) > 3:
-    #     background.paste(png, mask=split_image[3])  # 3 is the alpha channel
-    # else:
-    #     background.paste(png)
-    # background.save('foo.jpg', 'JPEG', quality=80)
-    # embedding = infer_image(np.array(background))
-
     rgb_image = Image.open(io.BytesIO(the_bytes)).convert('RGB')
     embedding = infer_image(np.array(rgb_image))
-
     if embedding is None:
         return []
     keys = []

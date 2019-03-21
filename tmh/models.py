@@ -9,9 +9,9 @@ from django.db import models
 
 
 class Person(models.Model):
-    date_created = models.DateTimeField(db_column='Date Created', blank=True,
+    date_created = models.DateTimeField(db_column='Date Created', auto_now_add=True,
                                         null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    date_modified = models.DateTimeField(db_column='Date Modified', blank=True,
+    date_modified = models.DateTimeField(db_column='Date Modified', auto_now=True,
                                          null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
     first_name = models.CharField(db_column='First Name', max_length=20, blank=True,
                                   null=True)  # Field name made lowercase. Field renamed to remove unsuitable characters.
