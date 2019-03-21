@@ -7,6 +7,9 @@ urlpatterns = [
     path('search_by_demographics', views.search_by_demographics, name='search_by_demographics'),
     path('search_by_picture', views.search_by_picture, name='search_by_picture'),
     path('<str:primary_key>/person_details', views.person_details, name='person_details'),
+
+    path('upload_pic', views.upload_pic, name='upload_pic'),
+
     path('upload', views.upload, name='upload'),
     path('', views.index, name='index'),
     path('generate_embeddings', views.generate_embeddings, name='generate_embeddings'),

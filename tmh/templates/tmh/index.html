@@ -82,6 +82,14 @@
                     <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
                        onclick="resetImageVals()">Reset</a>
                     <div id="image_search_results"></div>
+
+                    <form action="{% url "upload_pic" %}" method="post"
+                          enctype="multipart/form-data">{% csrf_token %}
+                        <p>
+                            <input id="id_image" type="file" class="" name="image">
+                        </p>
+                        <input type="submit" value="Submit"/>
+                    </form>
                 </div>
             </div>
         </div>
