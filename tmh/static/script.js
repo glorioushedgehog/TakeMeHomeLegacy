@@ -3,7 +3,9 @@ $(document).ready(function () {
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs();
-    document.getElementById("image-search-loading-animation").style.display = "none";
+    document.getElementById("image_search_loading_animation").style.display = "none";
+    document.getElementById("image_search_loading_text").style.display = "none";
+    $("#image_search_form").submit(showImageSearchLoadingAnimation);
 });
 
 function displayLoadingAnim() {
@@ -13,6 +15,11 @@ function displayLoadingAnim() {
 function displayMainContent() {
     document.getElementById("loadinganimation").style.display = "none";
     document.getElementById("imagesearchform").style.display = "block";
+}
+
+function showImageSearchLoadingAnimation() {
+    document.getElementById("image_search_loading_animation").style.display = "block";
+    document.getElementById("image_search_loading_text").style.display = "block";
 }
 
 function resetVals() {
@@ -187,7 +194,7 @@ function getPictureSearchQuery() {
         return
     }
 
-    document.getElementById("image-search-loading-animation").style.display = "block";
+    document.getElementById("image_search_loading_animation").style.display = "block";
     if (file.type !== "image/jpeg" && file.type !== "image/png") {
         alert("Please upload a PNG or JPEG");
         return
@@ -216,7 +223,7 @@ function sendFileRequest(fileAsB64) {
             'X-CSRFToken': token
         }
     }).done(function (returnHTML) {
-        document.getElementById("image-search-loading-animation").style.display = "none";
+        document.getElementById("image_search_loading_animation").style.display = "none";
         $("#image_search_results").html(returnHTML);
     })
 }

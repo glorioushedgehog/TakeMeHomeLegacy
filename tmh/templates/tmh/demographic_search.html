@@ -6,7 +6,7 @@
             <div class="col s12 m3">
                 {% for person in a_col %}
                     {% if person.image_url %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
+                        <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ person.image_url }}">
                                 <span class="card-title">
@@ -19,7 +19,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
+                        <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                             <div class="card-content">
                                 <span class="card-title">
                                     {% if person.name_to_call_me %}
@@ -63,7 +63,7 @@
             <div class="col s12 m6">
                 {% for person in a_col %}
                     {% if person.image_url %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
+                        <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                             <div class="card-image">
                                 <img src="{{ person.image_url }}">
                                 <span class="card-title">
@@ -76,7 +76,7 @@
                             </div>
                         </div>
                     {% else %}
-                        <div class="card" onclick="openModal({{ person.primarykey }})">
+                        <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                             <div class="card-content">
                                 <span class="card-title">
                                     {% if person.name_to_call_me %}
@@ -119,7 +119,7 @@
         <div class="row show-on-small hide-on-med-and-up">
             <div class="col s12">
                 {% if person.image_url %}
-                    <div class="card" onclick="openModal({{ person.primarykey }})">
+                    <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                         <div class="card-image">
                             <img src="{{ person.image_url }}">
                             <span class="card-title">
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                 {% else %}
-                    <div class="card" onclick="openModal({{ person.primarykey }})">
+                    <div class="card hoverable" onclick="openModal({{ person.primarykey }})">
                         <div class="card-content">
                                 <span class="card-title">
                                     {% if person.name_to_call_me %}
