@@ -16,7 +16,36 @@
                     </div>
                 </div>
             {% endif %}
+        {% if person.name_to_call_me %}
+                <h5>Call me {{ person.name_to_call_me }}</h5>
+            {% endif %}
+            <strong>Comments</strong>
+            <p>{{ person.comments }}</p>
             <table>
+                <tr>
+                    <td><strong>Organization</strong></td>
+                    <td>
+                        {% if person.organization %}
+                            {{ person.organization }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Record Type</strong></td>
+                    <td>
+                        {% if person.record_type %}
+                            {{ person.record_type }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Bracelet ID</strong></td>
+                    <td>
+                        {% if person.braclet_id %}
+                            {{ person.braclet_id }}
+                        {% endif %}
+                    </td>
+                </tr>
                 <tr>
                     <td><strong>First Name</strong></td>
                     <td>
@@ -172,38 +201,7 @@
             </table>
         </div>
         <div class="col s12 m6">
-            {% if person.name_to_call_me %}
-                <h4>Call me {{ person.name_to_call_me }}</h4>
-            {% endif %}
-            <strong>Comments</strong>
-            <p>{{ person.comments }}</p>
-            <table>
-                <tr>
-                    <td><strong>Organization</strong></td>
-                    <td>
-                        {% if person.organization %}
-                            {{ person.organization }}
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Record Type</strong></td>
-                    <td>
-                        {% if person.record_type %}
-                            {{ person.record_type }}
-                        {% endif %}
-                    </td>
-                </tr>
-                <tr>
-                    <td><strong>Bracelet ID</strong></td>
-                    <td>
-                        {% if person.braclet_id %}
-                            {{ person.braclet_id }}
-                        {% endif %}
-                    </td>
-                </tr>
-            </table>
-            <h5 class="center-align">Emergency Contacts</h5>
+            <h5>Emergency Contacts</h5>
             <div class="row">
                 <div class="col s12">
                     <div class="card">
