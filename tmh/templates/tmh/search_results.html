@@ -24,9 +24,13 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper green darken-1">
-            <div class="container">
+            <ul id="nav-mobile" class="left">
+                <li><a onclick="window.history.back()">Search Again</a></li>
+            </ul>
+            <div class="container hide-on-small-only">
                 <a class="brand-logo">Take Me Home</a>
             </div>
+            <a class="brand-logo right show-on-small hide-on-med-and-up">Take Me Home</a>
         </div>
     </nav>
 </div>
@@ -41,10 +45,10 @@
             <div class="card-panel">
                 <div class="row" id="progress_info"></div>
                 <div class="row" id="search_error">
-                    <div class="col s4 m5"></div>
-                    <div class="col s8 m7">
+                    <div class="col s3 m5"></div>
+                    <div class="col s9 m7">
                         <h5>Search failed</h5>
-                        <a href="/" class="btn btn-small waves-effect waves-light green" id="reset_btn">Try Again</a>
+                        <a onclick="window.history.back()" class="btn btn-small waves-effect waves-light green">Try Again</a>
                     </div>
                 </div>
                 <div id="search_results"></div>

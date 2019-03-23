@@ -1,4 +1,4 @@
-<h4> Search Results </h4>
+<h5> Search Results </h5>
 
 {% if persons_by_large_col %}
     <div class="row show-on-large hide-on-med-and-down">
@@ -167,4 +167,7 @@
             </div>
         </div>
     {% endfor %}
+{% else %}
+    <h6>No matching entries were found</h6>
+    <a onclick="window.history.back()" class="btn btn-small waves-effect waves-light green">Try Again</a>
 {% endif %}
