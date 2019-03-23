@@ -1,0 +1,63 @@
+<html lang="en">
+{% load static %}
+
+<head>
+    {% csrf_token %}
+    <title>Take Me Home</title>
+    <!-- jQuery -->
+    <script src="{% static "jquery-3.3.1.min.js" %}"></script>
+    <!-- Compiled and minified Materialize CSS and JavaScript -->
+    <link rel="stylesheet" href="{% static "materialize.min.css" %}">
+    <script src="{% static "materialize.min.js" %}"></script>
+
+    <!-- Our css and js files-->
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <script src="{% static "search_results.js" %}"></script>
+
+    <!--Import Google Icon Font-->
+    {#    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">#}
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper green darken-1">
+            <div class="container">
+                <a class="brand-logo">Take Me Home</a>
+            </div>
+        </div>
+    </nav>
+</div>
+<input type="hidden" name="inference_task_id" value="
+    {% if inference_task_id %}
+        {{ inference_task_id }}
+    {% endif %}">
+<div class="container" id="main_container">
+    <div class="row">
+        <h4>Search with Facial Recognition</h4>
+        <div class="col s12">
+            <div class="card-panel">
+                <div class="row" id="progress_info"></div>
+                <div class="row" id="search_error">
+                    <div class="col s4 m5"></div>
+                    <div class="col s8 m7">
+                        <h5>Search failed</h5>
+                        <a href="/" class="btn btn-small waves-effect waves-light green" id="reset_btn">Try Again</a>
+                    </div>
+                </div>
+                <div id="search_results"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="details_modal" class="modal">
+    <div class="modal-content" id="person_details">
+    </div>
+</div>
+
+</body>
+
+</html>

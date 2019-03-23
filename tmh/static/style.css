@@ -1,30 +1,20 @@
-/*.fixedheight td div {*/
-    /*height: 20px;*/
-    /*overflow: hidden;*/
-/*}*/
-/*#search_form{*/
-    /*width: 100%;*/
-    /*height: 600px;*/
-/*}*/
-/*.card-image {*/
-    /*float:right;*/
-    /*max-height: 300px;*/
-    /*max-width: 250px;*/
-/*}*/
-/*.card {*/
-    /*width: 300px;*/
-    /*height: 300px;*/
-/*}*/
-/*td, tr{*/
-    /*width: auto;*/
-/*}*/
-/*#search_results {*/
-    /*width: 500px;*/
-/*}*/
 ul .tab a {
     color: #2A2A2A !important;
 }
 ul .tab .active {
     color: #d11c00 !important;
     background-color: #ebffee !important;
+}
+/* If the screen size is 601px wide or more, set the font-size of <div> to 80px */
+@media screen and (min-width: 801px) {
+  ul .tab a {
+    font-size: 15px !important;
+  }
+}
+
+/* If the screen size is 600px wide or less, set the font-size of <div> to 30px */
+@media screen and (max-width: 800px) {
+  ul .tab a {
+    font-size: 12px !important;
+  }
 }

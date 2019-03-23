@@ -3,18 +3,77 @@ $(document).ready(function () {
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs();
-    document.getElementById("image_search_loading_animation").style.display = "none";
-    document.getElementById("image_search_loading_text").style.display = "none";
-    $("#image_search_form").submit(showImageSearchLoadingAnimation);
-    const inference_task_id = $("#inference_task_id");
-    if(inference_task_id.length) {
-        if (inference_task_id.val() !== "") {
-            console.log("found inference task id: " + inference_task_id.val())
-        } else {
-            console.log("could not find this things!");
-        }
+    // document.getElementById("image_search_loading_animation").style.display = "none";
+    // document.getElementById("image_search_loading_text").style.display = "none";
+    document.getElementById("search_error").style.display = "none";
+    const inference_task_id = document.getElementsByName("inference_task_id")[0].value.trim();
+    if (inference_task_id !== "") {
+        console.log("found inference task id: " + inference_task_id);
+        getInferenceProgress(inference_task_id)
+    } else {
+        console.log("could not find this things!");
     }
 });
+
+function getImageSearchResults(inference_task_id) {
+    const searchResultsSelector = $("#search_results");
+    const url = inference_task_id + '/search_results';
+    $.ajax({
+        method: 'GET',
+        url: url,
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function (returnHTML) {
+        if (returnHTML === undefined) {
+            console.log("no html was returned");
+        } else {
+            document.getElementById("progress_info").style.display = "none";
+            searchResultsSelector.html(returnHTML);
+        }
+    });
+}
+
+function checkForInferenceCompletion(inference_task_id) {
+    const url = inference_task_id + '/inference_complete';
+    $.ajax({
+        method: 'GET',
+        url: url,
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function (returnJson) {
+        if (returnJson['done']) {
+            console.log('done with the things');
+            getImageSearchResults(inference_task_id);
+        }else if(returnJson['error']){
+            document.getElementById("progress_info").style.display = "none";
+            document.getElementById("search_error").style.display = "block";
+        }else{
+            getInferenceProgress(inference_task_id);
+        }
+    });
+}
+
+function getInferenceProgress(inference_task_id) {
+    const progressInfoSelector = $("#progress_info");
+    const url = inference_task_id + '/inference_progress';
+    $.ajax({
+        method: 'GET',
+        url: url,
+    }).catch(function (error) {
+        console.log(error);
+    }).then(function (returnHTML) {
+        if (returnHTML === undefined) {
+            console.log("no html was returned");
+        } else {
+            progressInfoSelector.html(returnHTML);
+        }
+        // wait a little, then call checkForInferenceCompletion again
+        const millisecondsToWait = 500;
+        setTimeout(function () {
+            checkForInferenceCompletion(inference_task_id)
+        }, millisecondsToWait);
+    });
+}
 
 function showImageSearchLoadingAnimation() {
     document.getElementById("image_search_loading_animation").style.display = "block";
