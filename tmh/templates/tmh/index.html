@@ -36,6 +36,13 @@
 <div class="container" id="main_container">
     <div class="row">
         <h4>Search</h4>
+
+        <form action="{% url "search_by_demographics" %}" method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
+
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s6"><a class="active" href="#photo_search_tab">By Photo</a></li>

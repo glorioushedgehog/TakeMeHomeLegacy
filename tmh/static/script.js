@@ -1,19 +1,10 @@
 $(document).ready(function () {
-    $('.sidenav').sidenav();
     $('.modal').modal();
     $('select').formSelect();
     $('.tabs').tabs();
     document.getElementById("image_search_loading_animation").style.display = "none";
     document.getElementById("image_search_loading_text").style.display = "none";
     $("#image_search_form").submit(showImageSearchLoadingAnimation);
-    const inference_task_id = $("#inference_task_id");
-    if(inference_task_id.length) {
-        if (inference_task_id.val() !== "") {
-            console.log("found inference task id: " + inference_task_id.val())
-        } else {
-            console.log("could not find this things!");
-        }
-    }
 });
 
 function showImageSearchLoadingAnimation() {
@@ -172,9 +163,4 @@ function cmsToInches(cms) {
 
 function kgsToLbs(kgs) {
     return kgs * 2.204
-}
-
-function resetViews() {
-    document.getElementById("search_results").hidden = true;
-    document.getElementById("failed_search").hidden = true
 }

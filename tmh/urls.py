@@ -10,7 +10,9 @@ urlpatterns = [
     path('<int:inference_task_id>/inference_complete', views.inference_complete, name='inference_complete'),
     path('<int:inference_task_id>/inference_progress', views.inference_progress, name='inference_progress'),
     path('<int:inference_task_id>/search_results', views.search_results, name='search_results'),
+
     path('generate_embeddings', views.generate_embeddings, name='generate_embeddings'),
+    path('dropdown_options', views.dropdown_options, name='dropdown_options'),
 
     path('', views.index, name='index'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

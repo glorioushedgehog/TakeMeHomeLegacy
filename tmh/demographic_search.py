@@ -182,11 +182,76 @@ def search(a_person, first_name="", last_name="", middle_name="", name_to_call_m
         if weight_match(a_person, weight, a_person.weight):
             correct += 1
         total += 1
+    if total == 0:
+        return False
     print(a_person.first_name, a_person.last_name, correct / total)
     if correct / total >= 0.5:
         return True
     else:
         return False
+
+
+def get_matching_persons_old(search_params):
+    people = Person.objects.all()
+    first_name = ""
+    last_name = ""
+    middle_name = ""
+    name_to_call_me = ""
+    home_city = ""
+    home_state = ""
+    home_zip = ""
+    dob = ""
+    dob_year = ""
+    hair = ""
+    eyes = ""
+    race = ""
+    sex = ""
+    height = ""
+    weight = ""
+    remove_list = []
+    for entry in search_params:
+        if search_params[entry] is None:
+            remove_list.append(entry)
+    for entry in remove_list:
+        search_params.pop(entry, None)
+    if "first_name" in search_params:
+        first_name = search_params["first_name"]
+    if "last_name" in search_params:
+        last_name = search_params["last_name"]
+    if "middle_name" in search_params:
+        middle_name = search_params["middle_name"]
+    if "name_to_call_me" in search_params:
+        name_to_call_me = search_params["name_to_call_me"]
+    if "home_city" in search_params:
+        home_city = search_params["home_city"]
+    if "home_state" in search_params:
+        home_state = search_params["home_state"]
+    if "home_zip" in search_params:
+        home_zip = search_params["home_zip"]
+    if "dob" in search_params:
+        dob = search_params["dob"]
+    if "dob_year" in search_params:
+        dob_year = search_params["dob_year"]
+    if "hair" in search_params:
+        hair = search_params["hair"]
+    if "eyes" in search_params:
+        eyes = search_params["eyes"]
+    if "race" in search_params:
+        race = search_params["race"]
+    if "sex" in search_params:
+        sex = search_params["sex"]
+    if "height" in search_params:
+        height = search_params["height"]
+    if "weight" in search_params:
+        weight = search_params["weight"]
+
+    persons = []
+    for peep in people:
+        if search(peep, first_name, last_name, middle_name, name_to_call_me, home_city,
+                  home_state, home_zip, dob, dob_year, hair, eyes, race, sex, height,
+                  weight):
+            persons.append(peep)
+    return persons
 
 
 def get_matching_persons(search_params):
