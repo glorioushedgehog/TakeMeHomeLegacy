@@ -39,10 +39,10 @@ function checkForInferenceCompletion(inference_task_id) {
         if (returnJson['done']) {
             console.log('done with the things');
             getImageSearchResults(inference_task_id);
-        }else if(returnJson['error']){
+        } else if (returnJson['error']) {
             document.getElementById("progress_info").style.display = "none";
             document.getElementById("search_error").style.display = "block";
-        }else{
+        } else {
             getInferenceProgress(inference_task_id);
         }
     });
@@ -89,6 +89,7 @@ function getPersonDetails(personPrimaryKey, selector) {
 }
 
 function openModal(personPrimaryKey) {
+    console.log("opening modal");
     const modalElement = $("#details_modal");
     const instance = M.Modal.getInstance(modalElement);
     instance.open();

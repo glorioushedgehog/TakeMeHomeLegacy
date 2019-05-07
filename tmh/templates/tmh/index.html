@@ -24,7 +24,6 @@
 <div class="navbar-fixed">
     <nav>
         <div class="nav-wrapper green darken-1">
-
             <div class="container hide-on-small-only">
                 <a class="brand-logo">Take Me Home</a>
             </div>
@@ -36,13 +35,6 @@
 <div class="container" id="main_container">
     <div class="row">
         <h4>Search</h4>
-
-        <form action="{% url "search_by_demographics" %}" method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-
         <div class="col s12">
             <ul class="tabs">
                 <li class="tab col s6"><a class="active" href="#photo_search_tab">By Photo</a></li>
@@ -50,23 +42,16 @@
             </ul>
         </div>
         <div id="photo_search_tab" class="col s12">
-            <div class="card-panel">
-                <div class="row" id="photo_search_form">
-                    <div class="col s12">
-                        <h5>Search with Facial Recognition</h5>
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <form action="{% url "search_by_picture" %}" method="post" id="image_search_form"
-                                      enctype="multipart/form-data">{% csrf_token %}
-                                    <table class="fixedheight">
-                                        <tr>
-                                            <td>
-                                                <strong>Image</strong>
-                                            </td>
-                                            <td>
-                                                <input id="id_image" type="file" class="" name="image" required>
-                                            </td>
-                                        </tr>
+            <form action="{% url "search_by_picture" %}" method="post" id="image_search_form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="card-panel">
+                    <div class="row" id="photo_search_form">
+                        <div class="col s12">
+                            <h4>Search with Facial Recognition</h4>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <table>
+                                        {{ image_form.as_table }}
                                     </table>
                                     <div class="preloader-wrapper big active" id="image_search_loading_animation"
                                          style="margin-top: 6vh">
@@ -82,298 +67,189 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <p id="image_search_loading_text">Starting facial recognition search...</p>
-                                    <button class="btn btn-small waves-effect waves-light green" type="submit"
-                                            name="search" style="margin-top: 3vh">
-                                        Search
-                                    </button>
-                                </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+                <p id="image_search_loading_text">Starting facial recognition search...</p>
+                <button class="btn btn-small waves-effect waves-light green" type="submit" name="search">
+                    Search
+                </button>
+            </form>
         </div>
         <div id="other_search_tab" class="col s12">
-            <div class="card-panel">
-                <div class="row" id="search_form">
-                    <div class="col s12">
-                        <ul class="tabs">
-                            <li class="tab col s3"><a class="active" href="#demographics-tab">Demographics</a></li>
-                            <li class="tab col s3"><a href="#name-tab">Name</a></li>
-                            <li class="tab col s3"><a href="#type-tab">Type/Organization</a></li>
-                            <li class="tab col s3"><a href="#address-tab">Address/Phone</a></li>
-                        </ul>
-                    </div>
-                    <div id="demographics-tab" class="col s12">
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <table class="fixedheight">
-                                    <tr>
-                                        <td>
-                                            <strong> Date of Birth (Year) </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="dob_year">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> Height </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="height">
-                                            <select class="browser-default" id="height_unit">
-                                                <option value="1">inches</option>
-                                                <option value="2">cms</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> Weight </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="weight">
-                                            <select class="browser-default" id="weight_unit">
-                                                <option value="1">lbs</option>
-                                                <option value="2">kg</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                </table>
+            <form action="{% url "search_by_demographics" %}" method="post">
+                {% csrf_token %}
+                <div class="card-panel">
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Demographics</h4>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <table>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.dob_year.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.dob_year.label_tag }}</th>
+                                                <td>{{ demographics_form.dob_year }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.height.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.height.label_tag }}</th>
+                                                <td>{{ demographics_form.height }}
+                                                    <select class="browser-default" id="height_unit">
+                                                        <option value="1">inches</option>
+                                                        <option value="2">cms</option>
+                                                    </select></td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.weight.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.weight.label_tag }}</th>
+                                                <td>{{ demographics_form.weight }}
+                                                    <select class="browser-default" id="weight_unit">
+                                                        <option value="1">lbs</option>
+                                                        <option value="2">kg</option>
+                                                    </select>
+                                                </td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                                <div class="col s12 m6">
+                                    <table>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.sex.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.sex.label_tag }}</th>
+                                                <td>{{ demographics_form.sex }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.hair.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.hair.label_tag }}</th>
+                                                <td>{{ demographics_form.hair }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.eyes.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.eyes.label_tag }}</th>
+                                                <td>{{ demographics_form.eyes }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.race.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.race.label_tag }}</th>
+                                                <td>{{ demographics_form.race }}</td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="col s12 m6">
-                                <table class="fixedheight">
-                                    <tr>
-                                        <td>
-                                            <strong>Sex</strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="sex">
-                                                <option value="1">Male</option>
-                                                <option value="2">Female</option>
-                                            </select>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <strong>Hair Color </strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="hair_color">
-                                                <option value="Brown">Brown</option>
-                                                <option value="Black">Black</option>
-                                                <option value="Blonde">Blonde</option>
-                                            </select>
-
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>
-                                            <strong>Eye Color</strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="eye_color">
-                                                <option value="Brown">Brown</option>
-                                                <option value="Black">Black</option>
-                                                <option value="Blue">Blue</option>
-                                                <option value="Green">Green</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Race</strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="race">
-                                                <option value="I">American Indian or Alaska Native</option>
-                                                <option value="A">Asian</option>
-                                                <option value="B">Black or African American</option>
-                                                <option value="P">Native Hawaiian or Other Pacific Islander</option>
-                                                <option value="W">White</option>
-                                                <option value="H">Hispanic</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                </table>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <h4>Name</h4>
+                                    <table>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.last_name.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.last_name.label_tag }}</th>
+                                                <td>{{ demographics_form.last_name }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.first_name.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.first_name.label_tag }}</th>
+                                                <td>{{ demographics_form.first_name }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.name_to_call_me.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.name_to_call_me.label_tag }}</th>
+                                                <td>{{ demographics_form.name_to_call_me }}</td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
+                                <div class="col s12 m6">
+                                    <h4>Type / Organization</h4>
+                                    <table>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.braclet_id.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.braclet_id.label_tag }}</th>
+                                                <td>{{ demographics_form.braclet_id }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.record_type.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.record_type.label_tag }}</th>
+                                                <td>{{ demographics_form.record_type }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.organization.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.organization.label_tag }}</th>
+                                                <td>{{ demographics_form.organization }}</td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div id="name-tab" class="col s12">
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <table class="fixedheight">
-                                    <tr>
-                                        <td>
-                                            <strong> Last Name </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="last_name">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> First Name </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="first_name">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> Name to Call Me </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="name_to_call_me">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="type-tab" class="col s12">
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <table class="fixedheight">
-                                    <tr>
-                                        <td>
-                                            <strong>Bracelet ID</strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="braclet_id">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Record Type</strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="record_type">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AK">Alaska</option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="AR">Arkansas</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Organization</strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="organization">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AK">Alaska</option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="AR">Arkansas</option>
-                                            </select>
-                                        </td>
-                                    </tr>
-                                </table>
+                            <h4>Address / Phone</h4>
+                            <div class="row">
+                                <div class="col s12 m6">
+                                    <table>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.home_city.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.home_city.label_tag }}</th>
+                                                <td>{{ demographics_form.home_city }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.home_state.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.home_state.label_tag }}</th>
+                                                <td>{{ demographics_form.home_state }}</td>
+                                            </tr>
+                                        </div>
+                                        <div class="fieldWrapper">
+                                            {{ demographics_form.home_zip.errors }}
+                                            <tr>
+                                                <th>{{ demographics_form.home_zip.label_tag }}</th>
+                                                <td>{{ demographics_form.home_zip }}</td>
+                                            </tr>
+                                        </div>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div id="address-tab" class="col s12">
-                        <div class="row">
-                            <div class="col s12 m6">
-                                <table class="fixedheight">
-                                    <tr>
-                                        <td>
-                                            <strong> Home City </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="home_city" value="Irving">
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> Home State </strong>
-                                        </td>
-                                        <td>
-                                            <select class="browser-default" id="state">
-                                                <option value="AL">Alabama</option>
-                                                <option value="AK">Alaska</option>
-                                                <option value="AZ">Arizona</option>
-                                                <option value="AR">Arkansas</option>
-                                                <option value="CA">California</option>
-                                                <option value="CO">Colorado</option>
-                                                <option value="CT">Connecticut</option>
-                                                <option value="DE">Delaware</option>
-                                                <option value="DC">District Of Columbia</option>
-                                                <option value="FL">Florida</option>
-                                                <option value="GA">Georgia</option>
-                                                <option value="HI">Hawaii</option>
-                                                <option value="ID">Idaho</option>
-                                                <option value="IL">Illinois</option>
-                                                <option value="IN">Indiana</option>
-                                                <option value="IA">Iowa</option>
-                                                <option value="KS">Kansas</option>
-                                                <option value="KY">Kentucky</option>
-                                                <option value="LA">Louisiana</option>
-                                                <option value="ME">Maine</option>
-                                                <option value="MD">Maryland</option>
-                                                <option value="MA">Massachusetts</option>
-                                                <option value="MI">Michigan</option>
-                                                <option value="MN">Minnesota</option>
-                                                <option value="MS">Mississippi</option>
-                                                <option value="MO">Missouri</option>
-                                                <option value="MT">Montana</option>
-                                                <option value="NE">Nebraska</option>
-                                                <option value="NV">Nevada</option>
-                                                <option value="NH">New Hampshire</option>
-                                                <option value="NJ">New Jersey</option>
-                                                <option value="NM">New Mexico</option>
-                                                <option value="NY">New York</option>
-                                                <option value="NC">North Carolina</option>
-                                                <option value="ND">North Dakota</option>
-                                                <option value="OH">Ohio</option>
-                                                <option value="OK">Oklahoma</option>
-                                                <option value="OR">Oregon</option>
-                                                <option value="PA">Pennsylvania</option>
-                                                <option value="RI">Rhode Island</option>
-                                                <option value="SC">South Carolina</option>
-                                                <option value="SD">South Dakota</option>
-                                                <option value="TN">Tennessee</option>
-                                                <option value="TX" selected>Texas</option>
-                                                <option value="UT">Utah</option>
-                                                <option value="VT">Vermont</option>
-                                                <option value="VA">Virginia</option>
-                                                <option value="WA">Washington</option>
-                                                <option value="WV">West Virginia</option>
-                                                <option value="WI">Wisconsin</option>
-                                                <option value="WY">Wyoming</option>
-                                            </select>
-                                        </td>
-
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong> Home Zip </strong>
-                                        </td>
-                                        <td>
-                                            <input type="text" id="zip" value="75062">
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <a class="btn btn-small waves-effect waves-light green" id="search_btn"
-                       onclick="getSearchQuery()">Search</a>
-                    <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
-                       onclick="resetVals()">Reset</a>
-                    <div id="search_results"></div>
                 </div>
-            </div>
+                {{ demographics_form.non_field_errors }}
+                <button class="btn btn-small waves-effect waves-light green" type="submit"
+                        name="search">
+                    Search
+                </button>
+                {#                        <a class="btn btn-small waves-effect waves-light green" id="search_btn"#}
+                {#                           onclick="getSearchQuery()">Search</a>#}
+                <a class="btn btn-small waves-effect waves-light green" id="reset_btn"
+                   onclick="resetVals()">Reset</a>
+                {#                        <input type="submit" value="Submit">#}
+            </form>
+            {#                    <div id="search_results"></div>#}
         </div>
     </div>
 </div>

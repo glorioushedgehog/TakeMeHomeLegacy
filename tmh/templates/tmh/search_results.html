@@ -43,15 +43,24 @@
         <h4>Search with Facial Recognition</h4>
         <div class="col s12">
             <div class="card-panel">
-                <div class="row" id="progress_info"></div>
-                <div class="row" id="search_error">
-                    <div class="col s3 m5"></div>
-                    <div class="col s9 m7">
-                        <h5>Search failed</h5>
-                        <a onclick="window.history.back()" class="btn btn-small waves-effect waves-light green">Try Again</a>
+                {% if not inference_task_id %}
+{#                    if this isn't a facial recognition search, there won't be #}
+{#                    an inference task id, so we can display the results that were passed to us#}
+                    {% include 'tmh/search_result_cards.html' %}
+                {% else %}
+{#                    if there is an inference task id, then we need to display the inference task#}
+{#                    progress and inform the user if the search fails#}
+                    <div class="row" id="progress_info"></div>
+                    <div class="row" id="search_error">
+                        <div class="col s3 m5"></div>
+                        <div class="col s9 m7">
+                            <h5>Search failed</h5>
+                            <a onclick="window.history.back()" class="btn btn-small waves-effect waves-light green">Try
+                                Again</a>
+                        </div>
                     </div>
-                </div>
-                <div id="search_results"></div>
+                    <div id="search_results"></div>
+                {% endif %}
             </div>
         </div>
     </div>

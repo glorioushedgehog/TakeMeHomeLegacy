@@ -4,7 +4,6 @@ from tmh.models import ImageData
 
 
 def context_from_person_list(persons):
-    persons = persons * 5
     large_row_size = 4
     medium_row_size = 2
 

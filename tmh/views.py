@@ -1,10 +1,5 @@
-import time
-from threading import Thread
-
-from django.core.serializers import json
 from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.shortcuts import render
-from json import loads
 from facial_recognition import get_embeddings_for_image_datas
 from facial_recognition.search import init_inference_task
 from facial_recognition.search import get_matching_persons
@@ -13,18 +8,13 @@ from tmh.context_generators import context_from_person_list
 from tmh.forms import ImageUploadForm, PersonForm
 from .models import Person, InferenceTask, CfgLookup
 from .models import ImageData
-from facial_recognition import search
 
 
 def index(request):
-    persons = Person.objects.all()
-    images = ImageData.objects.all()
-    #context = {'persons': persons, 'images': images}
-    #return render(request, 'tmh/index.html', context)
-
-    form = PersonForm()
-    context = {'persons': persons, 'images': images, 'form': form}
-    return render(request, 'tmh/index.html', {'form': form})
+    image_form = ImageUploadForm()
+    demographics_form = PersonForm()
+    context = {'image_form': image_form, 'demographics_form': demographics_form}
+    return render(request, 'tmh/index.html', context)
 
 
 def person_details(request, primary_key):
@@ -50,42 +40,6 @@ def search_by_demographics(request):
         else:
             return render(request, 'tmh/search_results.html', {})
     return index(request)
-
-
-def search_by_picture_old(request):
-    keys = search.search(ImageData.objects.all(), request.body)
-    persons = []
-    for key in keys:
-        persons.append(Person.objects.get(pk=key))
-    context = context_from_person_list(persons)
-    return render(request, 'tmh/search_result_cards.html', context)
-
-
-def doit(n):
-    for _ in range(n):
-        print(3)
-        time.sleep(1)
-
-
-def search_by_picture_not_as_old(request):
-    if request.method == 'POST':
-        form = ImageUploadForm(request.POST, request.FILES)
-        if form.is_valid():
-            thread = Thread(target=doit, args=(5,))
-            thread.start()
-            the_image = form.cleaned_data['image']
-            keys = search.search_by_image(ImageData.objects.all(), the_image)
-            #print("skipping actually look for image matches")
-            persons = []
-            for key in keys:
-                persons.append(Person.objects.get(pk=key))
-            context = context_from_person_list(persons)
-            return render(request, 'tmh/search_results.html', context)
-    #         m = ExampleModel.objects.get(pk=course_id)
-    #         m.model_pic = form.cleaned_data['image']
-    #         m.save()
-    #         return HttpResponse('image upload success')
-    # return HttpResponseForbidden('allowed only via POST')
 
 
 def search_by_picture(request):
