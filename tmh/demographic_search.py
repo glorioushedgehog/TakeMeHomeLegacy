@@ -113,82 +113,82 @@ def search(a_person, search_params):
     total = 0
     correct = 0
 
-    if search_params['dob_year'] is not None:
+    if search_params['dob_year'] is not None and a_person.dob_year is not None:
         if dob_year_match(search_params['dob_year'], a_person.dob_year):
             correct += 1
         total += 1
-    if search_params['height'] is not None:
+    if search_params['height'] is not None and a_person.height is not None:
         if height_match(search_params['height'], a_person.height):
             correct += 1
         total += 1
-    if search_params['weight'] is not None:
+    if search_params['weight'] is not None and a_person.weight is not None:
         if weight_match(search_params['weight'], a_person.weight):
             correct += 1
         total += 1
-    if search_params['sex'] is not None:
+    if search_params['sex'] is not None and a_person.sex is not None:
         if search_params['sex'] == a_person.sex:
             correct += 1
         total += 1
-    if search_params['hair'] is not None:
+    if search_params['hair'] is not None and a_person.hair is not None:
         if search_params['hair'] == a_person.hair:
             correct += 1
         total += 1
-    if search_params['eyes'] is not None:
+    if search_params['eyes'] is not None and a_person.eyes is not None:
         if search_params['eyes'] == a_person.eyes:
             correct += 1
         total += 1
-    if search_params['race'] is not None:
+    if search_params['race'] is not None and a_person.race is not None:
         if search_params['race'] == a_person.race:
             correct += 1
         total += 1
 
-    if search_params['last_name'] is not None:
+    if search_params['last_name'] is not None and a_person.last_name is not None:
         if string_alignment(search_params['last_name'], a_person.last_name):
             correct += 1
         total += 1
-    if search_params['first_name'] is not None:
+    if search_params['first_name'] is not None and a_person.first_name is not None:
         if string_alignment(search_params['first_name'], a_person.first_name):
             correct += 1
         total += 1
-    if search_params['middle_name'] is not None:
+    if search_params['middle_name'] is not None and a_person.middle_name is not None:
         if string_alignment(search_params['middle_name'], a_person.middle_name):
             correct += 1
         total += 1
-    if search_params['name_to_call_me'] is not None:
+    if search_params['name_to_call_me'] is not None and a_person.name_to_call_me is not None:
         if string_alignment(search_params['name_to_call_me'], a_person.name_to_call_me):
             correct += 1
         total += 1
 
-    if search_params['braclet_id'] is not None:
+    if search_params['braclet_id'] is not None and a_person.braclet_id is not None:
         if string_alignment(search_params['braclet_id'], a_person.braclet_id):
             correct += 1
         total += 1
-    if search_params['record_type'] is not None:
+    if search_params['record_type'] is not None and a_person.record_type is not None:
         if search_params['record_type'] == a_person.record_type:
             correct += 1
         total += 1
-    if search_params['organization'] is not None:
+    if search_params['organization'] is not None and a_person.organization is not None:
         if search_params['organization'] == a_person.organization:
             correct += 1
         total += 1
 
-    if search_params['home_address'] is not None:
+    if search_params['home_address'] is not None and a_person.home_address is not None:
         if string_alignment(search_params['home_address'], a_person.home_address):
             correct += 1
         total += 1
-    if search_params['home_city'] is not None:
+    if search_params['home_city'] is not None and a_person.home_city is not None:
         if string_alignment(search_params['home_city'], a_person.home_city):
             correct += 1
         total += 1
-    if search_params['home_state'] is not None:
+    if search_params['home_state'] is not None and a_person.home_state is not None:
         if search_params['home_state'] == a_person.home_state:
             correct += 1
         total += 1
-    if search_params['home_zip'] is not None:
+    if search_params['home_zip'] is not None and a_person.home_zip is not None:
         if zip_match(search_params['home_zip'], a_person.home_zip):
             correct += 1
         total += 1
-    if search_params['home_phone'] is not None:
+    if search_params['home_phone'] is not None and a_person.home_phone is not None:
         if string_alignment(search_params['home_phone'], a_person.home_phone):
             correct += 1
         total += 1
