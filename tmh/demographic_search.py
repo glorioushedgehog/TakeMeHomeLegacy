@@ -1,7 +1,5 @@
 from tmh.models import Person
 
-AGE_GUESS_MARGIN = 5
-
 
 def weight_match(input_weight, attached_weight):
     """
@@ -53,6 +51,7 @@ def zip_match(input_zip, attached_zip):
 
 
 def dob_year_match(input_dob_year, attached_dob_year):
+    AGE_GUESS_MARGIN = 5
     return attached_dob_year - AGE_GUESS_MARGIN <= input_dob_year <= attached_dob_year + AGE_GUESS_MARGIN
 
 
@@ -66,7 +65,8 @@ def string_alignment(str_one, str_two):
     str1_len = len(str_one)
     str2_len = len(str_two)
 
-    if not str1_len or not str2_len: return max(str1_len, str2_len)
+    if not str1_len or not str2_len:
+        return max(str1_len, str2_len)
 
     # # each entry is a row
     # matrix = [0] * (str2_len + 1)
@@ -102,7 +102,7 @@ def string_alignment(str_one, str_two):
     return False
 
 
-def search(a_person, search_params):
+def match_percentage(a_person, search_params):
     """
     tells if there is a match between the parameters and a person
     :param a_person: the person being checked
@@ -194,18 +194,28 @@ def search(a_person, search_params):
         total += 1
 
     if total == 0:
-        return False
+        return 0
     print(a_person.first_name, a_person.last_name, correct / total)
-    if correct / total >= 0.5:
-        return True
-    else:
-        return False
+    return correct / total
+    # if correct / total >= 0.5:
+    #     return True
+    # else:
+    #     return False
 
 
 def get_matching_persons(search_params):
+    MATCH_THRESHOLD = 0.5
+    MAX_NUM_RESULTS = 20
     people = Person.objects.all()
-    persons = []
-    for a_person in people:
-        if search(a_person, search_params):
-            persons.append(a_person)
-    return persons
+    match_scores = [match_percentage(a_person, search_params) for a_person in people]
+    indices_sorted_by_score = list(range(len(match_scores)))
+    indices_sorted_by_score.sort(key=lambda i: match_scores[i], reverse=True)
+    matching_people = []
+    for index in indices_sorted_by_score:
+        if len(matching_people) >= MAX_NUM_RESULTS:
+            break
+        if match_scores[index] >= MATCH_THRESHOLD:
+            matching_people.append(people[index])
+        else:
+            break
+    return matching_people
