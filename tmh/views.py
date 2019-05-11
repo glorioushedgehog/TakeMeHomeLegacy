@@ -121,6 +121,17 @@ def dropdown_options(request):
             home_state_choices.append(a_tuple)
         if an_option.typeid == 9:
             default_choices.append(a_tuple)
+    # sort choices alphabetically
+    eyes_choices.sort()
+    hair_choices.sort()
+    organization_choices.sort()
+    race_choices.sort()
+    record_type_choices.sort()
+    emergency_contact_relationship_choices.sort()
+    sex_choices.sort()
+    home_state_choices.sort()
+    default_choices.sort()
+
     print("EYES_CHOICES = (")
     for a_choice in eyes_choices:
         print("\t" + str(a_choice) + ",")

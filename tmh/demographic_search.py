@@ -65,13 +65,13 @@ def string_alignment(str_one, str_two):
     str1_len = len(str_one)
     str2_len = len(str_two)
 
+    # this is an n-squared algorithm, so check n-squared
+    # and demand total (case-insensitive) equality for large big-O's
+    if str1_len * str2_len > 10000:
+        return str_one.lower() == str_two.lower()
+
     if not str1_len or not str2_len:
         return max(str1_len, str2_len)
-
-    # # each entry is a row
-    # matrix = [0] * (str2_len + 1)
-    # for i in range(str2_len + 1):
-    #     matrix[i] = [0] * (str1_len + 1)
 
     matrix = []
     for _ in range(str2_len + 1):
@@ -112,7 +112,7 @@ def match_percentage(a_person, search_params):
 
     total = 0
     correct = 0
-
+    # Demographics
     if search_params['dob_year'] is not None and a_person.dob_year is not None:
         if dob_year_match(search_params['dob_year'], a_person.dob_year):
             correct += 1
@@ -141,7 +141,7 @@ def match_percentage(a_person, search_params):
         if search_params['race'] == a_person.race:
             correct += 1
         total += 1
-
+    # Name
     if search_params['last_name'] is not None and a_person.last_name is not None:
         if string_alignment(search_params['last_name'], a_person.last_name):
             correct += 1
@@ -158,7 +158,7 @@ def match_percentage(a_person, search_params):
         if string_alignment(search_params['name_to_call_me'], a_person.name_to_call_me):
             correct += 1
         total += 1
-
+    # Type / Organization
     if search_params['braclet_id'] is not None and a_person.braclet_id is not None:
         if string_alignment(search_params['braclet_id'], a_person.braclet_id):
             correct += 1
@@ -171,7 +171,7 @@ def match_percentage(a_person, search_params):
         if search_params['organization'] == a_person.organization:
             correct += 1
         total += 1
-
+    # Address / Phone
     if search_params['home_address'] is not None and a_person.home_address is not None:
         if string_alignment(search_params['home_address'], a_person.home_address):
             correct += 1
@@ -195,12 +195,7 @@ def match_percentage(a_person, search_params):
 
     if total == 0:
         return 0
-    print(a_person.first_name, a_person.last_name, correct / total)
     return correct / total
-    # if correct / total >= 0.5:
-    #     return True
-    # else:
-    #     return False
 
 
 def get_matching_persons(search_params):
