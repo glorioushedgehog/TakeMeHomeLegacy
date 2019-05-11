@@ -329,12 +329,12 @@ class ImageData(models.Model):
 class InferenceTask(models.Model):
     LOCATING_FACE = 'LOCATING_FACE'
     ANALYZING_FACE = 'ANALYZING_FACE'
-    DONE = 'DONE'
+    SUCCESS = 'SUCCESS'
     ERROR = 'ERROR'
     STATES = (
         (LOCATING_FACE, 'Locating face...'),
         (ANALYZING_FACE, 'Analyzing face...'),
-        (DONE, 'Success!'),
+        (SUCCESS, 'Success!'),
         (ERROR, 'Something went wrong.'),
     )
     state = models.CharField(

@@ -36,8 +36,7 @@ function checkForInferenceCompletion(inference_task_id) {
     }).catch(function (error) {
         console.log(error);
     }).then(function (returnJson) {
-        if (returnJson['done']) {
-            console.log('done with the things');
+        if (returnJson['success']) {
             getImageSearchResults(inference_task_id);
         } else if (returnJson['error']) {
             document.getElementById("progress_info").style.display = "none";

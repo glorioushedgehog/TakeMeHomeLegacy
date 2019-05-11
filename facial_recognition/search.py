@@ -75,7 +75,7 @@ def search_image(task, image_bytes):
             # Run forward pass to calculate embeddings
             feed_dict = {images_placeholder: images, phase_train_placeholder: False}
             emb = sess.run(embeddings, feed_dict=feed_dict)
-    task.state = task.DONE
+    task.state = task.SUCCESS
     embedding_string = str(list(emb[0]))
     embedding_string = re.sub(r"\s", "", embedding_string)
     embedding_string = re.sub(r"\[", "", embedding_string)

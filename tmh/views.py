@@ -55,7 +55,7 @@ def search_by_picture(request):
 def inference_complete(request, inference_task_id):
     task = InferenceTask.objects.get(id=inference_task_id)
     json_response = {
-        'done': task.state == task.DONE,
+        'success': task.state == task.SUCCESS,
         'error': task.state == task.ERROR,
     }
     return JsonResponse(json_response)
@@ -80,6 +80,16 @@ def search_results(request, inference_task_id):
         persons.append(Person.objects.get(pk=key))
     context = context_from_person_list(persons)
     return render(request, 'tmh/search_result_cards.html', context)
+
+
+def facial_recognition_coverage(request):
+    people = Person.objects.all()
+
+    json_response = {
+        'done': task.state == task.DONE,
+        'error': task.state == task.ERROR,
+    }
+    return JsonResponse(json_response)
 
 
 def generate_embeddings(request):
