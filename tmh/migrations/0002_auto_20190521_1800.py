@@ -5,7 +5,6 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('tmh', '0001_initial'),
     ]
@@ -14,6 +13,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='imagedata',
             name='person',
-            field=models.OneToOneField(max_length=22, on_delete=django.db.models.deletion.CASCADE, primary_key=True, serialize=False, to='tmh.Person'),
+            field=models.OneToOneField(max_length=22, on_delete=django.db.models.deletion.CASCADE, primary_key=True,
+                                       serialize=False, to='tmh.Person'),
         ),
     ]
