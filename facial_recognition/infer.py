@@ -91,5 +91,5 @@ def get_embeddings(images):
                 for e in emb:
                     embeddings.append(e)
                 images_done += len(batch)
-                print("images prepared for FR search:", images_done)
+                print("images embedded:", images_done)
     return embeddings
