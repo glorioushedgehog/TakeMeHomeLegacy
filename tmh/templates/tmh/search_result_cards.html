@@ -5,15 +5,21 @@
         {% for a_col in persons_by_large_col %}
             <div class="col s12 m3">
                 {% for person in a_col %}
-                    {% if person.image_url %}
+                    {% if person.imagedata %}
                         <div class="card hoverable" onclick="openModal('{{ person.primarykey }}')">
                             <div class="card-image">
-                                <img src="{{ person.image_url }}">
+                                <img src="{{ person.imagedata.picture.url }}">
                                 <span class="card-title">
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                             </div>
@@ -25,7 +31,13 @@
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                                 <table>
@@ -62,15 +74,21 @@
         {% for a_col in persons_by_medium_col %}
             <div class="col s12 m6">
                 {% for person in a_col %}
-                    {% if person.image_url %}
+                    {% if person.imagedata %}
                         <div class="card hoverable" onclick="openModal('{{ person.primarykey }}')">
                             <div class="card-image">
-                                <img src="{{ person.image_url }}">
+                                <img src="{{ person.imagedata.picture.url }}">
                                 <span class="card-title">
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                             </div>
@@ -82,7 +100,13 @@
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                                 <table>
@@ -118,15 +142,21 @@
     {% for person in persons %}
         <div class="row show-on-small hide-on-med-and-up">
             <div class="col s12">
-                {% if person.image_url %}
+                {% if person.imagedata %}
                     <div class="card hoverable" onclick="openModal('{{ person.primarykey }}')">
                         <div class="card-image">
-                            <img src="{{ person.image_url }}">
+                            <img src="{{ person.imagedata.picture.url }}">
                             <span class="card-title">
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                         </div>
@@ -138,7 +168,13 @@
                                     {% if person.name_to_call_me %}
                                         {{ person.name_to_call_me }}
                                     {% else %}
-                                        {{ person.first_name }}
+                                        {% if person.first_name %}
+                                            {{ person.first_name }}
+                                        {% else %}
+                                            {% if person.last_name %}
+                                                {{ person.last_name }}
+                                            {% endif %}
+                                        {% endif %}
                                     {% endif %}
                                 </span>
                             <table>

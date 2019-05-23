@@ -1,0 +1,81 @@
+<html lang="en">
+{% load static %}
+
+<head>
+    {% csrf_token %}
+    <title>Take Me Home</title>
+    <!-- jQuery -->
+    <script src="{% static "jquery-3.3.1.min.js" %}"></script>
+    <!-- Compiled and minified Materialize CSS and JavaScript -->
+    <link rel="stylesheet" href="{% static "materialize.min.css" %}">
+    <script src="{% static "materialize.min.js" %}"></script>
+    <!-- Our css and js files-->
+    <link rel="stylesheet" href="{% static "style.css" %}">
+    <script src="{% static "manage_facial_recognition.js" %}"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+
+<body>
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper green darken-1">
+            <div class="container hide-on-small-only">
+                <a class="brand-logo">Take Me Home</a>
+            </div>
+            <a class="brand-logo left show-on-small hide-on-med-and-up">Take Me Home</a>
+        </div>
+    </nav>
+</div>
+
+<div class="container" id="main_container">
+    <div class="row">
+        <h4>Manage FR Search</h4>
+        <div class="card-panel">
+            <p>There are</p>
+            <h4>{{ num_persons }}</h4>
+            <p>people in the database</p>
+            <div class="row">
+                <div class="col s12 m4">
+                    <h4>{{ num_with_imagedata }}</h4>
+                    <p>People have pictures ready to be viewed in this GUI</p>
+                </div>
+                <div class="col s12 m4">
+                    <h4>{{ num_without_imagedata }}</h4>
+                    <p>People do NOT have pictures ready to be viewed in this GUI</p>
+                </div>
+                <div class="col s12 m4">
+                    <h4>{{ imagedata_percentage }}</h4>
+                    <p>Have pictures ready to be viewed in this GUI</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12 m4">
+                    <h4>{{ num_ready_for_fr }}</h4>
+                    <p>People are ready to be searched by facial recognition</p>
+                </div>
+                <div class="col s12 m4">
+                    <h4>{{ num_not_ready_for_fr }}</h4>
+                    <p>People are NOT ready to be searched by facial recognition</p>
+                </div>
+                <div class="col s12 m4">
+                    <h4>{{ fr_ready_percentage }}</h4>
+                    <p>Are ready to be searched by facial recognition</p>
+                </div>
+            </div>
+            <div id="before-clicking-button">
+                <p>Click below to analyze pictures in the database so that they can be searched with facial recognition</p>
+                <button class="btn btn-small waves-effect waves-light green" id="prepare-for-fr-button">
+                    Prepare Database for FR Search
+                </button>
+                <p style="color: #c5000f">Warning: the preparation task can only be stopped by killing the Django
+                    server. If the server needs to be active now, avoid running this task if a large number of pictures
+                    need to be analyzed and Tensorflow is not setup to use a GPU.</p>
+            </div>
+            <div id="after-clicking-button" style="display:none">
+                <p>Task progress can be viewed in the Python console where the Django server is running</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

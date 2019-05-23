@@ -12,6 +12,9 @@ Install dependencies
 
 Migrate
 
+Add dropdown options to models.py
+note that old software would replace BR with B
+
 Generate Embeddings
 
 Serve

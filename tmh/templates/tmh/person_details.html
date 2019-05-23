@@ -1,13 +1,20 @@
 {% if person %}
     <div class="row">
         <div class="col s12 m6">
-            <h4>{{ person.first_name }} {{ person.last_name }}</h4>
-            {% if image_data and image_data.picture %}
+            <h4>
+                {% if person.first_name %}
+                    {{ person.first_name }}
+                {% endif %}
+                {% if person.last_name %}
+                    {{ person.last_name }}
+                {% endif %}
+            </h4>
+            {% if person.imagedata %}
                 <div class="row">
                     <div class="col s12">
                         <div class="card">
                             <div class="card-image">
-                                <img src="{{ image_data.picture.url }}">
+                                <img src="{{ person.imagedata.picture.url }}">
                             </div>
                             <div class="card-content">
                                 <p>Picture taken on {{ person.picture_date }}</p>
@@ -16,7 +23,7 @@
                     </div>
                 </div>
             {% endif %}
-        {% if person.name_to_call_me %}
+            {% if person.name_to_call_me %}
                 <h5>Call me {{ person.name_to_call_me }}</h5>
             {% endif %}
             <strong>Comments</strong>
@@ -26,7 +33,7 @@
                     <td><strong>Organization</strong></td>
                     <td>
                         {% if person.organization %}
-                            {{ person.organization }}
+                            {{ person.get_organization_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -34,7 +41,7 @@
                     <td><strong>Record Type</strong></td>
                     <td>
                         {% if person.record_type %}
-                            {{ person.record_type }}
+                            {{ person.get_record_type_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -81,8 +88,8 @@
                 <tr>
                     <td><strong>Age</strong></td>
                     <td>
-                        {% if person.age %}
-                            {{ person.age }}
+                        {% if age %}
+                            {{ age }} years
                         {% endif %}
                     </td>
                 </tr>
@@ -106,7 +113,7 @@
                     <td><strong>Home State</strong></td>
                     <td>
                         {% if person.home_state %}
-                            {{ person.home_state }}
+                            {{ person.get_home_state_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -138,7 +145,7 @@
                     <td><strong>Hair</strong></td>
                     <td>
                         {% if person.hair %}
-                            {{ person.hair }}
+                            {{ person.get_hair_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -146,7 +153,7 @@
                     <td><strong>Eyes</strong></td>
                     <td>
                         {% if person.eyes %}
-                            {{ person.eyes }}
+                            {{ person.get_eyes_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -154,7 +161,7 @@
                     <td><strong>Race</strong></td>
                     <td>
                         {% if person.race %}
-                            {{ person.race }}
+                            {{ person.get_race_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -162,7 +169,7 @@
                     <td><strong>Sex</strong></td>
                     <td>
                         {% if person.sex %}
-                            {{ person.sex }}
+                            {{ person.get_sex_display }}
                         {% endif %}
                     </td>
                 </tr>
@@ -236,7 +243,7 @@
                                     <td><strong>Relationship</strong></td>
                                     <td>
                                         {% if person.emergency_contact_1_relationship %}
-                                            {{ person.emergency_contact_1_relationship }}
+                                            {{ person.get_emergency_contact_1_relationship_display }}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -289,7 +296,7 @@
                                     <td><strong>Relationship</strong></td>
                                     <td>
                                         {% if person.emergency_contact_2_relationship %}
-                                            {{ person.emergency_contact_2_relationship }}
+                                            {{ person.get_emergency_contact_2_relationship_display }}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -342,7 +349,7 @@
                                     <td><strong>Relationship</strong></td>
                                     <td>
                                         {% if person.emergency_contact_3_relationship %}
-                                            {{ person.emergency_contact_3_relationship }}
+                                            {{ person.get_emergency_contact_3_relationship_display }}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -395,7 +402,7 @@
                                     <td><strong>Relationship</strong></td>
                                     <td>
                                         {% if person.emergency_contact_4_relationship %}
-                                            {{ person.emergency_contact_4_relationship }}
+                                            {{ person.get_emergency_contact_4_relationship_display }}
                                         {% endif %}
                                     </td>
                                 </tr>
@@ -448,7 +455,7 @@
                                     <td><strong>Relationship</strong></td>
                                     <td>
                                         {% if person.emergency_contact_5_relationship %}
-                                            {{ person.emergency_contact_5_relationship }}
+                                            {{ person.get_emergency_contact_5_relationship_display }}
                                         {% endif %}
                                     </td>
                                 </tr>

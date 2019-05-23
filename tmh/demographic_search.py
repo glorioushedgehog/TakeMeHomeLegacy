@@ -8,8 +8,8 @@ def weight_match(input_weight, attached_weight):
     :param attached_weight: the weight of the class
     :return: True if within the threshold, False otherwise
     """
-    WEIGHT_THRESH = 30
-    return attached_weight - WEIGHT_THRESH <= input_weight <= attached_weight + WEIGHT_THRESH
+    weight_thresh = 30
+    return attached_weight - weight_thresh <= input_weight <= attached_weight + weight_thresh
 
 
 def height_match(input_height, attached_height):
@@ -19,8 +19,8 @@ def height_match(input_height, attached_height):
     :param attached_height: the height of the class
     :return: True if within the threshold, False otherwise
     """
-    HEIGHT_THRESH = 3
-    return attached_height - HEIGHT_THRESH <= input_height <= attached_height + HEIGHT_THRESH
+    height_thresh = 3
+    return attached_height - height_thresh <= input_height <= attached_height + height_thresh
 
 
 def dob_match(input_dob, attached_dob):
@@ -30,12 +30,12 @@ def dob_match(input_dob, attached_dob):
     :param attached_dob: the class dob
     :return: True if a match is determined, False otherwise
     """
-    YEAR_THRESH = 5
+    year_thresh = 5
     if input_dob.day != attached_dob.day:
         return False
     if input_dob.month != attached_dob.month:
         return False
-    if not attached_dob.year - YEAR_THRESH <= input_dob.year <= attached_dob.year + YEAR_THRESH:
+    if not attached_dob.year - year_thresh <= input_dob.year <= attached_dob.year + year_thresh:
         return False
     return True
 
@@ -51,8 +51,8 @@ def zip_match(input_zip, attached_zip):
 
 
 def dob_year_match(input_dob_year, attached_dob_year):
-    AGE_GUESS_MARGIN = 5
-    return attached_dob_year - AGE_GUESS_MARGIN <= input_dob_year <= attached_dob_year + AGE_GUESS_MARGIN
+    age_guess_margin = 5
+    return attached_dob_year - age_guess_margin <= input_dob_year <= attached_dob_year + age_guess_margin
 
 
 def string_alignment(str_one, str_two):
@@ -179,15 +179,15 @@ def match_percentage(a_person, search_params):
     if search_params['home_city'] is not None and a_person.home_city is not None:
         if string_alignment(search_params['home_city'], a_person.home_city):
             correct += 1
-        total += 1
+        # home city should not count towards total_count since it has a default value
     if search_params['home_state'] is not None and a_person.home_state is not None:
         if search_params['home_state'] == a_person.home_state:
             correct += 1
-        total += 1
+        # home state should not count towards total_count since it has a default value
     if search_params['home_zip'] is not None and a_person.home_zip is not None:
         if zip_match(search_params['home_zip'], a_person.home_zip):
             correct += 1
-        total += 1
+        # home zip should not count towards total_count since it has a default value
     if search_params['home_phone'] is not None and a_person.home_phone is not None:
         if string_alignment(search_params['home_phone'], a_person.home_phone):
             correct += 1
@@ -199,17 +199,17 @@ def match_percentage(a_person, search_params):
 
 
 def get_matching_persons(search_params):
-    MATCH_THRESHOLD = 0.5
-    MAX_NUM_RESULTS = 20
+    match_threshold = 0.0
+    max_num_results = 40
     people = Person.objects.all()
     match_scores = [match_percentage(a_person, search_params) for a_person in people]
     indices_sorted_by_score = list(range(len(match_scores)))
     indices_sorted_by_score.sort(key=lambda i: match_scores[i], reverse=True)
     matching_people = []
     for index in indices_sorted_by_score:
-        if len(matching_people) >= MAX_NUM_RESULTS:
+        if len(matching_people) >= max_num_results:
             break
-        if match_scores[index] >= MATCH_THRESHOLD:
+        if match_scores[index] >= match_threshold:
             matching_people.append(people[index])
         else:
             break

@@ -40,7 +40,11 @@
     {% endif %}">
 <div class="container" id="main_container">
     <div class="row">
-        <h4>Search with Facial Recognition</h4>
+        {% if inference_task_id %}
+            <h4>Search with Facial Recognition</h4>
+        {% else %}
+            <h4>Search by Demographics</h4>
+        {% endif %}
         <div class="col s12">
             <div class="card-panel">
                 {% if not inference_task_id %}
