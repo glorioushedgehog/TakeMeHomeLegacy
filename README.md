@@ -11,7 +11,7 @@ If you encounter any issues with the software or would like to request a feature
 
 Download [Python 3.6](https://www.python.org/downloads/release/python-368/)
 
-When installing python, be sure to add it to path. Also, ensure that pip gets installed.
+When installing python, be sure to add it to path environment variable. Also, ensure that pip gets installed.
 ### 2. Create virtualenv
 First, install virtualenv
 ```
@@ -45,14 +45,14 @@ pip install -r requirements.txt
 ```
 to install all the app's dependencies. This might take a while.
 ### 4. Migrate
-In a text editor, open TakeMeHomeDjango/settings.py
+In a text editor, open [`TakeMeHomeDjango/settings.py`](/TakeMeHomeDjango/settings.py)
 Go to the definition of
 ```
 DATABASES
 ```
 and input the connection information for the Take He Home database.
 
-The Django app is setup for the default database tables and settings from the original Take He Home software. If you know that your department has never changed the tables or the choices for fields like home state, organization, hair color etc., then you can skip to [generating the embeddings](/#generate-embeddings)
+The Django app is setup for the default database tables and settings from the original Take He Home software. If you know that your department has never changed the tables or the choices for fields like home state, organization, hair color etc., then you can skip to [generating the embeddings](#5-generate-embeddings)
 
 Add dropdown options to models.py
 
@@ -60,4 +60,4 @@ note that old software would replace BR with B
 
 ### 5. Generate Embeddings
 
-### Serve
+### 6. Serve
