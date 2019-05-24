@@ -101,7 +101,6 @@ def get_matching_persons(embedding_string, image_datas):
             print(image_data.person)
             print("embedding:")
             print(image_data.embedding)
-        print(a_distance)
         if a_distance < distance_threshold:
             keys.append(image_data.person.primarykey)
     return keys

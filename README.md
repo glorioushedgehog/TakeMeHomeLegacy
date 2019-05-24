@@ -1,17 +1,12 @@
 # Take Me Home Legacy
-Django app ready to be attached to legacy Take Me Home databases
-
-Supports searches with facial recognition.
-
-Also supports the demographic search used by the legacy software.
+Django app ready to be attached to legacy Take Me Home databases. Supports both search with facial recognition and demographic search used by the legacy software. This app is designed to not interfere with the legacy software, so you may at any time revert to using the old app.
 ## Support
-If you encounter any issues with the software or would like to request a feature, email takemehomesoftware@outlook.com
+If you encounter any issues with the software or would like to request a feature, either open an issue on this repo or email takemehomesoftware@outlook.com
 ## Installation Instructions
 ### 1. Install Python
-
 Download [Python 3.6](https://www.python.org/downloads/release/python-368/)
 
-When installing python, be sure to add it to path environment variable. Also, ensure that pip gets installed.
+When installing python, be sure to add it to your path environment variable. Also, ensure that pip gets installed.
 ### 2. Create virtualenv
 First, install virtualenv
 ```
@@ -27,7 +22,7 @@ Then, activate the virtual environment:
 ```
 source venv/bin/activate
 ```
-If not using Windows. On Windows, do
+if not using Windows. On Windows, do
 ```
 venv\Scripts\activate
 ```
@@ -44,20 +39,64 @@ In the project root folder, run
 pip install -r requirements.txt
 ```
 to install all the app's dependencies. This might take a while.
-### 4. Migrate
-In a text editor, open [`TakeMeHomeDjango/settings.py`](/TakeMeHomeDjango/settings.py)
-Go to the definition of
-```
-DATABASES
-```
-and input the connection information for the Take He Home database.
+### 4. Connect to Database
+In a text editor, open [`TakeMeHomeDjango/settings.py`](/TakeMeHomeDjango/settings.py). Go to the definition of the `DATABASES` dictionary and enter the connection information for the Take He Home database.
 
-The Django app is setup for the default database tables and settings from the original Take He Home software. If you know that your department has never changed the tables or the choices for fields like home state, organization, hair color etc., then you can skip to [generating the embeddings](#5-generate-embeddings)
+Now, start the server by running
+```
+python manage.py runserver
+```
+You should see something like
+```
+Starting development server at http://127.0.0.1:8000/
+```
+in the output. Open http://127.0.0.1:8000/ (or whatever url Django indicates) in your browser and you should see the new Take Me Home GUI. If you try running a search, you should see a long stack trace. That's because the app requires two tables in the database that are not part of the legacy app.
+
+To add the tables, run the following SQL in your database.
+```
+BEGIN TRANSACTION
+--
+-- Create model InferenceTask
+--
+CREATE TABLE [Inference_Task] (
+	[id] int IDENTITY (1, 1) NOT NULL PRIMARY KEY, 
+	[state] nvarchar(22) NOT NULL, 
+	[Embedding] nvarchar(max) NULL, 
+	[Date Created] datetime2 NULL
+);
+--
+-- Create model ImageData
+--
+CREATE TABLE [Image_Data] (
+	[person_id] varchar(22) NOT NULL PRIMARY KEY, 
+	[PictureURL] nvarchar(100) NOT NULL, 
+	[Embedding] nvarchar(max) NULL
+);
+ALTER TABLE [Image_Data] ADD CONSTRAINT [Image_Data_person_id_b3701060_fk_TAKEMEHOME_PrimaryKey] FOREIGN KEY ([person_id]) REFERENCES [TAKEMEHOME] ([PrimaryKey]);
+COMMIT;
+```
+If you're familiar with Django, you're probably wondering why we're using SQL instead of Django's migration system. The explanation is [here](https://github.com/glorioushedgehog/TakeMeHomeLegacy/issues/37#issue-448330438).
+
+After adding the `ImageData` and `InferenceTask` tables, you can `runserver` again and try to perform a search with the Take Me Home webapp. This time, it should work!
+
+If you perform a search, you'll notice that no images appear for the people in the database. To fix this, follow the directions to [generate the embeddings](#5-generate-embeddings) for the images.
+### 5. Generate Embeddings
+This step will accomplish two things: it will make images appear in search results, and it will make those images searchable with facial recognition.
+
+While the server is running, open http://127.0.0.1:8000/manage_facial_recognition in your browser, replacing the base URL with whatever URL Django gives when you run `runserver`. You should see a page describing the state of the images in the database. Click the button at the bottom to start an "FR preparation" thread. This thread will do three things:
+1. Save all images in the Person table to disk outside the database. You should see the `tmh/static/images` folder fill up with the images. This is done because Django has a hard policy against storing files in binary fields, which is exactly what the legacy software does with images in the TAKEMEHOME table.
+2. Detect faces in all images in the Person table. Using a neural network, the thread will find the location of faces in each picture. If it cannot find a face in some picture, it will say so in stdout.
+3. Analyze faces in all images in the Person table. For all images that have detectable faces, the thread will use another neural network to analyze the faces and get "embedding" vectors, which encode the person's identity. These embeddings will then be stored in the `ImageData` table.
+
+After the "FR preparation" process is complete, you can reload http://127.0.0.1:8000/manage_facial_recognition to see the new facial recognition coverage stats. If there are still some people without pictures ready to be viewed in the GUI, it is probably because there are entries in the TAKEMEHOME table don't have pictures. If there are people that have pictures but the pictures are not ready to be searched with facial recognition, it is probably because the neural network could not find a face in the image for the person. The output that the "FR preparation" task printed to the console will tell you if either of these two things happened for each person. It will give you the primary keys for the TAKEMEHOME table so that you can find the entries that may need images added or just new images with clearly visible faces.
+
+Now, you can reload http://127.0.0.1:8000/ and try running a facial recognition search or a demographic search. Both should work.
+
+At this point, you're good to go! The server is ready for use. Below are instructions on changing some settings and adding new entries to the database.
+### 6. Dropdown Options
 
 Add dropdown options to models.py
 
 note that old software would replace BR with B
 
-### 5. Generate Embeddings
-
-### 6. Serve
+### 7. Add People to Database

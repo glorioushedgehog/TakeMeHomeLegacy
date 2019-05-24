@@ -347,7 +347,6 @@ class InferenceTask(models.Model):
         choices=STATES,
         default=LOCATING_FACE,
     )
-    primarykey = models.CharField(db_column='PrimaryKey', max_length=22, blank=True, null=True)
     embedding = models.TextField(db_column='Embedding', blank=True, null=True)
     date_created = models.DateTimeField(db_column='Date Created', auto_now_add=True, null=True)
 
