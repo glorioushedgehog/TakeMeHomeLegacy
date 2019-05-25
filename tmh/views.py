@@ -88,85 +88,36 @@ def prepare_for_facial_recognition(request):
 
 
 def dropdown_options(request):
-    eyes_choices = []
-    hair_choices = []
-    organization_choices = []
-    race_choices = []
-    record_type_choices = []
-    emergency_contact_relationship_choices = []
-    sex_choices = []
-    home_state_choices = []
-
-    def hi():
-        print("af")
-
-    default_choices = []
+    def print_choices(choice_list):
+        for choice in choice_list:
+            print("\t" + str(choice) + ",")
+        print(")")
+    choices = [[] for _ in range(10)]
     config_options = CfgLookup.objects.all()
     for an_option in config_options:
         a_tuple = (an_option.choice.strip(), an_option.description.strip())
-        if an_option.typeid == 1:
-            eyes_choices.append(a_tuple)
-        if an_option.typeid == 2:
-            hair_choices.append(a_tuple)
-        if an_option.typeid == 3:
-            organization_choices.append(a_tuple)
-        if an_option.typeid == 4:
-            race_choices.append(a_tuple)
-        if an_option.typeid == 5:
-            record_type_choices.append(a_tuple)
-        if an_option.typeid == 6:
-            emergency_contact_relationship_choices.append(a_tuple)
-        if an_option.typeid == 7:
-            sex_choices.append(a_tuple)
-        if an_option.typeid == 8:
-            home_state_choices.append(a_tuple)
-        if an_option.typeid == 9:
-            default_choices.append(a_tuple)
+        choices[an_option.typeid].append(a_tuple)
     # sort choices alphabetically
-    eyes_choices.sort()
-    hair_choices.sort()
-    organization_choices.sort()
-    race_choices.sort()
-    record_type_choices.sort()
-    emergency_contact_relationship_choices.sort()
-    sex_choices.sort()
-    home_state_choices.sort()
-    default_choices.sort()
-
+    for list_of_choices in choices:
+        list_of_choices.sort()
     print("EYES_CHOICES = (")
-    for a_choice in eyes_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[1])
     print("HAIR_CHOICES = (")
-    for a_choice in hair_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[2])
     print("ORGANIZATION_CHOICES = (")
-    for a_choice in organization_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[3])
     print("RACE_CHOICES = (")
-    for a_choice in race_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[4])
     print("RECORD_TYPE_CHOICES = (")
-    for a_choice in record_type_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[5])
     print("EMERGENCY_CONTACT_RELATIONSHIP_CHOICES = (")
-    for a_choice in emergency_contact_relationship_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[6])
     print("SEX_CHOICES = (")
-    for a_choice in sex_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[7])
     print("HOME_STATE_CHOICES = (")
-    for a_choice in home_state_choices:
-        print("\t" + str(a_choice) + ",")
-    print(")")
+    print_choices(choices[8])
     print("DEFAULT_CHOICES = {")
-    for a_choice in default_choices:
+    for a_choice in choices[9]:
         print("\t'" + a_choice[0] + "': '" + a_choice[1] + "',")
     print("}")
     return HttpResponse("see output in python console")
