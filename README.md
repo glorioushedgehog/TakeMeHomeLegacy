@@ -118,9 +118,9 @@ For example, the default race options are:
 
 Where the first entry in each tuple is what gets stored in the column and the second entry is the human-readable version.
 
-Note: the legacy has a bug related to the 'race' field. It uses 'BR' to represent 'BI-RACIAL', but the 'race' field is only one character, so 'BR' gets trimmed to 'B', which represents 'AFRICAN AMERICAN'. This app fixes the problem by using 'R' to represent 'BI-RACIAL'. This works for new entries made in the Django app, but there might still be entries in your database that have incorrect 'race' fields due to this bug.
+Note: the legacy software has a bug related to the 'race' field. It uses 'BR' to represent 'BI-RACIAL', but the 'race' field is only one character, so 'BR' gets trimmed to 'B', which represents 'AFRICAN AMERICAN'. This app fixes the problem by using 'R' to represent 'BI-RACIAL'. This works for new entries made in the Django app, but there might still be entries in your database that have incorrect 'race' fields due to this bug.
 
-If open [`tmh/models.py`](/tmh/models.py), at the top of the `Person` class you will see the definitions of the "dropdown options" for each field. If your department might have changed these options or the data in the `DEFAULT_CHOICES` dictionary, then you should take the following steps:
+If you open [`tmh/models.py`](/tmh/models.py), at the top of the `Person` class you will see the definitions of the "dropdown options" for each field. If your department might have changed these options or the data in the `DEFAULT_CHOICES` dictionary, then you should take the following steps:
 1. Run the server
 2. In your browser, go to http://127.0.0.1:8000/dropdown_options. Making the request to this URL will tell the Django server to read in your `Cfg_Lookup` table and print out the corresponding Python code, just like you saw in [`tmh/models.py`](/tmh/models.py). If you prefer the version that is prints to the console, then you can copy and paste it into [`tmh/models.py`](/tmh/models.py) (before doing this, keep in mind the bug mentioned above).
 3. That's it! You don't even need to restart the server. The new dropdown options should show up in the demographic search form after you refresh the page.
