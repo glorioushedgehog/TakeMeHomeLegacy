@@ -92,11 +92,37 @@ After the "FR preparation" process is complete, you can reload http://127.0.0.1:
 
 Now, you can reload http://127.0.0.1:8000/ and try running a facial recognition search or a demographic search. Both should work.
 
-At this point, you're good to go! The server is ready for use. Below are instructions on changing some settings and adding new entries to the database.
+At this point, you're good to go! The server is ready for use.
+
+Below are instructions on changing some settings and adding new entries to the database.
 ### 6. Dropdown Options
+The legacy app stores some settings data in the `Cfg_Lookup` table. Specifically, the table dictates what values the following fields can take on:
+1. Eye Color
+2. Hair Color
+3. Organization
+4. Race
+5. Record Type
+6. Emergency Contact Relationship
+7. Sex
+8. Home State
 
-Add dropdown options to models.py
+For example, the default race options are:
 
-note that old software would replace BR with B
+- ('A', 'ASIAN')
+- ('B', 'AFRICAN AMERICAN')
+- ('BR', 'BI-RACIAL')
+- ('H', 'HISPANIC')
+- ('O', 'OTHER')
+- ('P', 'PACIFIC ISLANDER')
+- ('W', 'WHITE NON-HISPANIC')
 
+Where the first entry in each tuple is what gets stored in the column and the second entry is the human-readable version.
+
+Note: the legacy has a bug related to the 'race' field. It uses 'BR' to represent 'BI-RACIAL', but the 'race' field is only one character, so 'BR' gets trimmed to 'B', which represents 'AFRICAN AMERICAN'. This app fixes the problem by using 'R' to represent 'BI-RACIAL'. This works for new entries made in the Django app, but there might still be entries in your database that have incorrect 'race' fields due to this bug.
+
+If open [`tmh/models.py`](/tmh/models.py), at the top of the `Person` class you will see the definitions of the "dropdown options" for each field. If your department might have changed these options or the data in the `DEFAULT_CHOICES` dictionary, then you should take the following steps:
+1. Run the server
+2. In your browser, go to http://127.0.0.1:8000/dropdown_options. Making the request to this URL will tell the Django server to read in your `Cfg_Lookup` table and print out the corresponding Python code, just like you saw in [`tmh/models.py`](/tmh/models.py). If you prefer the version that is prints to the console, then you can copy and paste it into [`tmh/models.py`](/tmh/models.py) (before doing this, keep in mind the bug mentioned above).
+3. That's it! You don't even need to restart the server. The new dropdown options should show up in the demographic search form after you refresh the page.
 ### 7. Add People to Database
+The easiest way to add people to the database is to open the legacy app, create the new entry, then run the "FR preparation" task as described in [step 5](#5-generate-embeddings). If you are adding more than one person, then you can input all the data through the legacy app, then run the FR preparation task just once at the end.

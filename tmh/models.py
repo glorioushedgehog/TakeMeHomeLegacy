@@ -45,7 +45,7 @@ class Person(models.Model):
     RACE_CHOICES = (
         ('A', 'ASIAN'),
         ('B', 'AFRICAN AMERICAN'),
-        ('BR', 'BI-RACIAL'),
+        ('R', 'BI-RACIAL'),
         ('H', 'HISPANIC'),
         ('O', 'OTHER'),
         ('P', 'PACIFIC ISLANDER'),
