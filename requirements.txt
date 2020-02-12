@@ -1,6 +1,6 @@
 absl-py==0.7.0
 astor==0.7.1
-Django==2.1.7
+Django==2.2.10
 django-pyodbc-azure==2.1.0.0
 gast==0.2.2
 grpcio==1.18.0
